@@ -15,6 +15,5 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- 
-void prepare_display(void);
 
+void prepare_display (void);

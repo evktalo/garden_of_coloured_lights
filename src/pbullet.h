@@ -15,8 +15,8 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- void run_pbullets(void);
-int create_pbullet(int type);
-int init_pbullets(void);
-void beam_collision(int m);
-void swbeam_collision(int m);
+void run_pbullets (void);
+int create_pbullet (int type);
+int init_pbullets (void);
+void beam_collision (int m);
+void swbeam_collision (int m);

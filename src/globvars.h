@@ -21,19 +21,19 @@
 
 extern struct playerstruct player;
 
-extern struct ebulletstruct ebullet [NO_EBULLETS];
+extern struct ebulletstruct ebullet[NO_EBULLETS];
 
-extern struct pbulletstruct pbullet [NO_PBULLETS];
+extern struct pbulletstruct pbullet[NO_PBULLETS];
 
-extern struct enemystruct enemy [NO_ENEMIES];
+extern struct enemystruct enemy[NO_ENEMIES];
 
-extern struct cloudstruct cloud [NO_CLOUDS];
+extern struct cloudstruct cloud[NO_CLOUDS];
 
 extern unsigned char counter;
 
 extern struct arenastruct arena;
 
-extern struct eclassstruct eclass [NO_ENEMY_TYPES];
+extern struct eclassstruct eclass[NO_ENEMY_TYPES];
 
 extern struct bossstruct boss;
 

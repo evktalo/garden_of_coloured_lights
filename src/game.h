@@ -15,9 +15,7 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- 
-void game_loop(void);
-void new_game(void);
-void player_hit(void);
 
-
+void game_loop (void);
+void new_game (void);
+void player_hit (void);

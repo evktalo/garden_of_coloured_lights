@@ -15,9 +15,9 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- 
-void get_input(void);
 
-void init_joystick(void);
+void get_input (void);
 
-void jstick_calibrate(void);
+void init_joystick (void);
+
+void jstick_calibrate (void);

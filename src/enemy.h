@@ -15,18 +15,19 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- 
-int create_enemy(int type);
 
-void init_enemies(void);
+int create_enemy (int type);
 
-void run_enemies(void);
+void init_enemies (void);
 
-void pbullet_hits_enemy(int b, int e);
+void run_enemies (void);
 
-int hurt_enemy(int e, int dam, int source);;
-void set_wpixels(void);
+void pbullet_hits_enemy (int b, int e);
 
-int fire_dart(int x, int y, int angle, int colour, int wait, int accel);
-int fire_ddart(int x, int y, int angle, int colour, int wait, int accel);
-int fire_diamond(int x, int y, int angle, int colour, int speed, int rot, int wait);
+int hurt_enemy (int e, int dam, int source);;
+void set_wpixels (void);
+
+int fire_dart (int x, int y, int angle, int colour, int wait, int accel);
+int fire_ddart (int x, int y, int angle, int colour, int wait, int accel);
+int fire_diamond (int x, int y, int angle, int colour, int speed, int rot,
+		  int wait);

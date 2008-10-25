@@ -15,7 +15,7 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- 
-void init_ebullets(void);
-int create_ebullet(int type);
-void run_ebullets(void);
+
+void init_ebullets (void);
+int create_ebullet (int type);
+void run_ebullets (void);
