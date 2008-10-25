@@ -1,0 +1,3 @@
+[Scores]
+Easy = 4646
+Hard = 520
