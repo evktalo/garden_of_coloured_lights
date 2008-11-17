@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.62)
-AC_INIT([GARDEN_OF_COLOURED_LIGHTS], [1.0.2], [BUG-REPORT-ADDRESS])
+AC_INIT([GARDEN_OF_COLOURED_LIGHTS], [1.0.3], [bubla@users.sourceforge.net])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall])
 AC_CONFIG_SRCDIR([src/input.h])
@@ -11,12 +11,34 @@ AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
 AC_PROG_CC
+AC_PROG_LIBTOOL
+LT_PROG_RC
+
+AC_CANONICAL_HOST
+
+AS_IF([test "${host_os:0:5}" = "mingw"],
+      [AC_DEFINE([WINDOWS_VERSION],
+		 [1],
+		 [Define when building for Windows])
+       windows_version="yes"])
+
+AM_CONDITIONAL([WINDOWS_VERSION],
+	       [test "x$windows_version" = "xyes" ])
 
 # Checks for libraries.
-AM_PATH_ALLEGRO([4.2.2])
+AC_CHECK_HEADER([allegro.h],
+		[AC_CHECK_LIB([alleg],
+			      [main],
+			      [have_allegro="yes"
+			       LIBS="-lalleg $LIBS"]) 
+	         AC_CHECK_LIB([allegro_unsharable],
+			      [main],
+			      [LIBS="-lalleg_unsharable $LIBS"]) ])
+AS_IF([test "x$have_allegro" != "xyes"],
+      [AC_MSG_ERROR([Unable to find Allegro game programming library 4.2, check out www.allegro.cc]) ])
 
 # Checks for header files.
-AC_CHECK_HEADERS([string.h])
+AC_CHECK_HEADERS([string.h sys/stat.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
@@ -30,6 +52,7 @@ AC_SUBST([DATADIR_NAME],
 
 AC_CONFIG_FILES([Makefile
                  bin/Makefile
-		 data/Makefile])
+		 data/Makefile
+		 resources/Makefile])
 
 AC_OUTPUT

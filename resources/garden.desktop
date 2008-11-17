@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=garden
+Comment=Garden of coloured lights shoot-em-up
+Exec=garden
+Icon=garden
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Categories=Game;
