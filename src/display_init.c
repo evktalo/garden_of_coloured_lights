@@ -121,6 +121,7 @@ extern struct RLE_STRUCT RLE_ring [20];
 
 extern struct RLE_STRUCT RLE_rshock [5] [20];
 
+char filename_buffer [DATADIR_SIZE];
 
 BITMAP *load_up_bitmap(const char fname []);
 RLE_SPRITE *extract_rle_sprite(BITMAP *source, int x_source, int y_source, int x, int y);
@@ -159,11 +160,13 @@ void prepare_display(void)
 
  clear_to_color(screen, COL_OUTLINE);
 
- DATAFILE *datf = load_datafile(DIRECTORY(DATADIR,gfx/garden.dat));
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/garden.dat", sizeof(char) * DATADIR_SIZE);
+ DATAFILE *datf = load_datafile(filename_buffer);
  if (datf == NULL)
  {
   set_gfx_mode(GFX_TEXT, 0, 0, 0, 0);
-  allegro_message("Error: Couldn't find data.dat (expected it at %s)!", DIRECTORY(DATADIR,gfx/garden.dat) );
+  allegro_message("Error: Couldn't find data.dat (expected it at %s)!", filename_buffer );
   allegro_message("");
   exit(1);
  }
@@ -180,16 +183,21 @@ splash bitmap
  RGB splash_palette [256];
 
 
- BITMAP *splash_bitmap = load_bitmap(DIRECTORY(DATADIR,gfx/splash.bmp), splash_palette);
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/splash.bmp", sizeof(char) * DATADIR_SIZE);
+ BITMAP *splash_bitmap = load_bitmap(filename_buffer, splash_palette);
 
  if (splash_bitmap == NULL)
  {
   set_gfx_mode(GFX_TEXT, 0, 0, 0, 0);
-  allegro_message("Failed to load in bitmap! (File not found?) %s", "splash.bmp");
+  allegro_message("Failed to load in bitmap! (File not found?) %s", filename_buffer);
   exit(1);
  }
 
-/* BITMAP *wait_bitmap = load_bitmap(DIRECTORY(DATADIR,gfx/wait.bmp), splash_palette);
+ /*
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/wait.bmp", sizeof(char) * DATADIR_SIZE);
+ BITMAP *wait_bitmap = load_bitmap(filename_buffer, splash_palette);
 
  if (wait_bitmap == NULL)
  {
@@ -350,7 +358,9 @@ void prepare_s_enemy_rles(void)
 {
 
 
- BITMAP *file_bitmap = load_up_bitmap(DIRECTORY(DATADIR,gfx/small.bmp));
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/small.bmp", sizeof(char) * DATADIR_SIZE);
+ BITMAP *file_bitmap = load_up_bitmap(filename_buffer);
 
  fix_outline(file_bitmap);
 
@@ -483,7 +493,9 @@ void prepare_s_enemy_rles(void)
 void prepare_icon_rles(void)
 {
 
- BITMAP *file_bitmap = load_up_bitmap(DIRECTORY(DATADIR,gfx/icons.bmp));
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/icons.bmp", sizeof(char) * DATADIR_SIZE);
+ BITMAP *file_bitmap = load_up_bitmap(filename_buffer);
 
  fix_outline(file_bitmap);
   int i;
@@ -510,7 +522,9 @@ void prepare_l_enemy_rles(void)
 
  RGB temp_palette [256];
 
- BITMAP *temp_bitmap = load_bitmap(DIRECTORY(DATADIR,gfx/large.bmp), temp_palette);
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/large.bmp", sizeof(char) * DATADIR_SIZE);
+ BITMAP *temp_bitmap = load_bitmap(filename_buffer, temp_palette);
 
 // set_palette(temp_palette);
 
@@ -522,7 +536,9 @@ void prepare_l_enemy_rles(void)
 
 #endif
 
- BITMAP *file_bitmap = load_up_bitmap(DIRECTORY(DATADIR,gfx/large.bmp));
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/large.bmp", sizeof(char) * DATADIR_SIZE);
+ BITMAP *file_bitmap = load_up_bitmap(filename_buffer);
 
  fix_outline(file_bitmap);
 
@@ -607,7 +623,9 @@ void prepare_trans_rles(void)
 {
 
 
- BITMAP *file_bitmap = load_up_bitmap(DIRECTORY(DATADIR,gfx/trans.bmp));
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/trans.bmp", sizeof(char) * DATADIR_SIZE);
+ BITMAP *file_bitmap = load_up_bitmap(filename_buffer);
 
  fix_trans(file_bitmap);
 
@@ -952,7 +970,9 @@ void prepare_petals(void)
 void prepare_multi_rles(void)
 {
 
- BITMAP *file_bitmap = load_up_bitmap(DIRECTORY(DATADIR,gfx/multi.bmp));
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/multi.bmp", sizeof(char) * DATADIR_SIZE);
+ BITMAP *file_bitmap = load_up_bitmap(filename_buffer);
 
  fix_outline(file_bitmap);
 
@@ -1050,7 +1070,9 @@ void prepare_multi_rles(void)
 void prepare_platform_rles(void)
 {
 
- BITMAP *file_bitmap = load_up_bitmap(DIRECTORY(DATADIR,gfx/platform.bmp));
+ strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
+ strncat(filename_buffer, "gfx/platform.bmp", sizeof(char) * DATADIR_SIZE);
+ BITMAP *file_bitmap = load_up_bitmap(filename_buffer);
 
 // int i, j;
 

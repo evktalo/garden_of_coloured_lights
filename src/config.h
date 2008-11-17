@@ -25,10 +25,9 @@
 /* transforms path,file to "path/file" */
 #define DIRECTORY(x,y) DIRECTORY_LOWLEVEL(x,y)
 
-/* define the datadir to the program directory if none supplied  */
-#ifndef DATADIR
-#define DATADIR .
-#endif //DATADIR
+/* The data directory will be here... */
+#define DATADIR_SIZE 512
+extern char data_directory[DATADIR_SIZE];
 
 #define NO_KEYS CKEY_END
 #define X_MIN 5000

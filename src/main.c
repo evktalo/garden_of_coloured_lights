@@ -15,15 +15,15 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- 
-
-
+#include "system.h"
 #include "config.h"
 
 #include "allegro.h"
 
 //#include <string.h>
 #include <math.h>
+#include <stdio.h>
+#include <unistd.h>	/* For file permissions check */
 
 #include "globvars.h"
 #include "stuff.h"
@@ -61,6 +61,8 @@ struct bossstruct boss;
 
 struct optionstruct options;
 
+char data_directory[DATADIR_SIZE] = "\0";
+
 void framecount(void)
 {
    frames_per_second = framecounter;
@@ -82,6 +84,8 @@ END_OF_FUNCTION (tickover);
 int main(void)
 {
 
+
+
 int allint =  allegro_init();
    if (allint == -1)
    {
@@ -90,12 +94,19 @@ int allint =  allegro_init();
       exit(1);
    }
 
-
    install_keyboard();
    install_timer();
 
    three_finger_flag = 0;
    key_led_flag = 0;
+// allegro_init first :-)
+#ifdef DATADIR
+	strncpy(data_directory, DATADIR, sizeof(data_directory));
+	strcat(data_directory, "/");
+#else
+	get_executable_name(data_directory, sizeof(data_directory));
+	replace_filename(data_directory, data_directory, "", sizeof(data_directory));
+#endif //DATADIR
 
  init_at_startup();
 
@@ -140,7 +151,40 @@ Thanks to Thomas Harte for this code! I had no idea it was necessary (it isn't o
 I haven't tested it).
 
 */
-#ifdef UNIX_OSX_VISTA_ETC
+ char filename_buffer [DATADIR_SIZE];
+ strncpy(filename_buffer, data_directory, sizeof(filename_buffer));
+ strncat(filename_buffer, "init.txt", sizeof(filename_buffer));
+ if (access(filename_buffer, W_OK) == 0)	
+ {/*We can write the init file*/
+	 set_config_file(filename_buffer);
+ }
+ else 
+ {/*We can not write the init where it is*/
+	char right_path[512];
+	const char * unix_path = getenv("HOME");
+	const char * vista_path = getenv("APPDATA");
+	strncpy(right_path, (unix_path != NULL ? unix_path : vista_path), sizeof(right_path) );
+	strncat(right_path, "/.garden", sizeof(right_path) ); 
+	if (access(right_path, R_OK) != 0 ) /* we have to mkdir */
+	{
+		/* platform-specific function, see system.h*/
+		MKDIR(right_path);
+	}
+	strncat(right_path, "/init.txt", sizeof(right_path) ); 
+	if (access(right_path, R_OK) != 0 )
+	{
+		char buffer[128];
+		int bytes_read;
+		FILE * unwritable_file = fopen(filename_buffer, "r");
+		FILE * init_file = fopen(right_path, "w");
+		while (bytes_read = fread(buffer, 1, sizeof(buffer), unwritable_file) )
+			fwrite ( buffer, 1, bytes_read, init_file );
+		fclose(init_file);
+		fclose(unwritable_file);
+	}
+	set_config_file(right_path);
+ }
+/*#ifdef UNIX_OSX_VISTA_ETC
 
    {
 
@@ -157,7 +201,7 @@ I haven't tested it).
    }
 #else
    set_config_file(DIRECTORY(DATADIR,init.txt));
-#endif
+#endif*/
 
 
    options.run_vsync = get_config_int("Misc", "vsync", 0);
