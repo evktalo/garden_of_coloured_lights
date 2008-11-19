@@ -31,7 +31,7 @@
 ;Interface Settings
 
   !define MUI_ABORTWARNING
-
+  !define MUI_WELCOMEFINISHPAGE_BITMAP "../../resources/strip.bmp"
 ;--------------------------------
 ;Variables
 
@@ -89,7 +89,7 @@ file ../../bin/.libs/garden.exe
 file mingwm10.dll
 
 !insertmacro MUI_STARTMENU_WRITE_BEGIN garden
-createShortCut "$SMPROGRAMS\$StartMenuFolder\garden.lnk" "$INSTDIR\garden.exe" "" "garden.ico"
+createShortCut "$SMPROGRAMS\$StartMenuFolder\garden.lnk" "$INSTDIR\garden.exe" "" "$INSTDIR\garden.exe"
 !insertmacro MUI_STARTMENU_WRITE_END
 
 SectionEnd
@@ -242,6 +242,7 @@ Section "Uninstall"
   Delete $INSTDIR\wavs\worms.wav
   RMDir  $INSTDIR\wavs
 
+  Delete $INSTDIR\init.txt
   Delete $INSTDIR\garden.exe
   Delete $INSTDIR\mingwm10.dll
   Delete $INSTDIR\uninstall.exe ; delete self (see explanation below why this works)
@@ -262,8 +263,8 @@ SectionEnd
 ;  LangString DESC_Sec ${LANG_ENGLISH} ""
 
   ;Assign language strings to sections
-  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-  !insertmacro MUI_FUNCTION_DESCRIPTION_END
+ ; !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+ ; !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------
 
