@@ -34,7 +34,8 @@
 
 #include "palette.h"
 
-#define SCREENSHOT
+/* This equals cheat mode...  */
+/* #define SCREENSHOT */
 
 
 #ifdef SCREENSHOT

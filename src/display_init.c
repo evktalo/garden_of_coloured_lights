@@ -181,7 +181,7 @@ splash bitmap
 */
 
  RGB splash_palette [256];
-
+ memset(& splash_palette, 0, sizeof(splash_palette));
 
  strncpy(filename_buffer, data_directory, sizeof(char) * DATADIR_SIZE);
  strncat(filename_buffer, "gfx/splash.bmp", sizeof(char) * DATADIR_SIZE);
