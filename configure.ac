@@ -34,6 +34,12 @@ AC_CHECK_HEADER([allegro.h],
 	         AC_CHECK_LIB([allegro_unsharable],
 			      [main],
 			      [LIBS="-lalleg_unsharable $LIBS"]) ])
+
+AS_IF([test "x$have_allegro" != "xyes"],
+      [AM_PATH_ALLEGRO([4.2.0], 
+		       [have_allegro="yes"
+			LIBS="$allegro_LIBS $LIBS"]) ])
+
 AS_IF([test "x$have_allegro" != "xyes"],
       [AC_MSG_ERROR([Unable to find Allegro game programming library 4.2, check out www.allegro.cc]) ])
 
