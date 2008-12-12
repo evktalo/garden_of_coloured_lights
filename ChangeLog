@@ -1,0 +1,10 @@
+2008-11-20 Matěj Týč <bubla@users.sf.net>
+	* input.c: Added correct handling of config file storage
+	* display_init.c, main.c, sound.c: Added more correct handling of data
+	files location
+2008-12-11 Matěj Týč <bubla@users.sf.net>
+	* enemy.c: Fixed a bug causing that the player didn't get the right
+	bonus life award due to score bonuses.
+2008-12-12 Matěj Týč <bubla@users.sf.net>
+	* display_init.c: Made the code in coat_sprite() function slower, but
+	safer (forced usage of getpixel instead of _getpixel)

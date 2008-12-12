@@ -6656,13 +6656,6 @@ void allocate_xp (int e)
 
 void gain_score (int s)
 {
-  if ((player.score / 2000) != (player.score + s) / 2000)
-  {
-    player.lives++;
-    play_effectwfvx (WAV_LEVEL, tone[NOTE_1G], 250, player.x);
-//  play_effectwfvx(WAV_EXTRA, 1500, 200, 320);
-  }
-
   if (boss.fight == 0 && arena.stage_score < arena.next_phase[arena.phase]
       && arena.stage_score + s >= arena.next_phase[arena.phase])
   {
@@ -6673,8 +6666,15 @@ void gain_score (int s)
 
   arena.stage_score += s;
 
-  player.score += (s * (100 + arena.phase_bonus)) / 100;
+  int additional_score = (s * (100 + arena.phase_bonus)) / 100;
 
+  if ((player.score / 2000) != (player.score + additional_score) / 2000)
+  {
+    player.lives++;
+    play_effectwfvx (WAV_LEVEL, tone[NOTE_1G], 250, player.x);
+//  play_effectwfvx(WAV_EXTRA, 1500, 200, 320);
+  }
+  player.score += additional_score;
 }
 
 void set_wpixels (void)

@@ -2012,17 +2012,17 @@ void coat_sprite(BITMAP *target, int col)
  {
   for (j = 1; j < target->h - 1; j ++)
   {
-   if (_getpixel(target, i, j) == 0)
+   if (getpixel(target, i, j) == 0)
    {
-    if ((_getpixel(target, i - 1, j) != 0 && _getpixel(target, i - 1, j) != col)
-       || (_getpixel(target, i + 1, j) != 0 && _getpixel(target, i + 1, j) != col)
-       || (_getpixel(target, i, j - 1) != 0 && _getpixel(target, i, j - 1) != col)
-       || (_getpixel(target, i, j + 1) != 0 && _getpixel(target, i, j + 1) != col))
+    if ((getpixel(target, i - 1, j) != 0 && getpixel(target, i - 1, j) != col)
+       || (getpixel(target, i + 1, j) != 0 && getpixel(target, i + 1, j) != col)
+       || (getpixel(target, i, j - 1) != 0 && getpixel(target, i, j - 1) != col)
+       || (getpixel(target, i, j + 1) != 0 && getpixel(target, i, j + 1) != col))
          putpixel(target, i, j, col);
    }
+
   }
  }
-
 }
 
 void coat_file_sprite_xy(BITMAP *target, int col, int x1, int y1, int x2, int y2)

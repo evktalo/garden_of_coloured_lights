@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.62)
-AC_INIT([GARDEN_OF_COLOURED_LIGHTS], [1.0.3], [bubla@users.sourceforge.net])
+AC_INIT([GARDEN_OF_COLOURED_LIGHTS], [1.0.5], [bubla@users.sourceforge.net])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall])
 AC_CONFIG_SRCDIR([src/input.h])
@@ -16,32 +16,47 @@ LT_PROG_RC
 
 AC_CANONICAL_HOST
 
-AS_IF([test "${host_os:0:5}" = "mingw"],
-      [AC_DEFINE([WINDOWS_VERSION],
-		 [1],
-		 [Define when building for Windows])
-       windows_version="yes"])
+AS_CASE([$host],
+        [*mingw* | *cygwin*],
+        [AC_DEFINE([WINDOWS_VERSION],
+ 		   [1],
+		   [Define when building for Windows])
+         windows_version="yes"])
 
 AM_CONDITIONAL([WINDOWS_VERSION],
 	       [test "x$windows_version" = "xyes" ])
 
 # Checks for libraries.
 AC_CHECK_HEADER([allegro.h],
-		[AC_CHECK_LIB([alleg],
-			      [main],
-			      [have_allegro="yes"
-			       LIBS="-lalleg $LIBS"]) 
-	         AC_CHECK_LIB([allegro_unsharable],
-			      [main],
-			      [LIBS="-lalleg_unsharable $LIBS"]) ])
+		[],
+		[have_allegro="no"])
 
-AS_IF([test "x$have_allegro" != "xyes"],
+# first check for 'official allegro'
+AS_IF([test "x$have_allegro" != "xno" -a "x$have_allegro" != "xyes"],
       [AM_PATH_ALLEGRO([4.2.0], 
 		       [have_allegro="yes"
-			LIBS="$allegro_LIBS $LIBS"]) ])
+			LIBS="$allegro_LIBS $LIBS"]) ]) 
 
+# then check for autotools-supported Allegro
+AS_IF([test "x$have_allegro" != "xno" -a "x$have_allegro" != "xyes"],
+      [AC_CHECK_LIB([alleg],
+                    [main],
+                    [have_allegro="yes"
+		     AC_MSG_NOTICE([You can safely ignore the Allegro warning you got earlier...])
+                     LIBS="-lalleg $LIBS"]) 
+       AC_CHECK_LIB([allegro_unsharable],
+                    [main],
+                    [LIBS="-lalleg_unsharable $LIBS"]) ])
+
+# and then for Windows allegro...
+AS_IF([test "x$have_allegro" != "xno" -a "x$have_allegro" != "xyes"],
+      [AC_CHECK_LIB([alleg42],
+                    [main],
+                    [have_allegro="yes"
+                     LIBS="-lalleg42 $LIBS"]) ])
+ 
 AS_IF([test "x$have_allegro" != "xyes"],
-      [AC_MSG_ERROR([Unable to find Allegro game programming library 4.2, check out www.allegro.cc]) ])
+      [AC_MSG_ERROR([Unable to find Allegro game programming library 4.2, check out www.allegro.cc (or your distro repositories if you use a unix-like system)]) ])
 
 # Checks for header files.
 AC_CHECK_HEADERS([string.h sys/stat.h])
@@ -59,6 +74,7 @@ AC_SUBST([DATADIR_NAME],
 AC_CONFIG_FILES([Makefile
                  bin/Makefile
 		 data/Makefile
-		 resources/Makefile])
+		 resources/Makefile
+		 pkgs/w32/winstaller.nsi])
 
 AC_OUTPUT

@@ -16,7 +16,7 @@
 
   ;Name and file
   Name "Garden of coloured lights"
-  OutFile "garden-install.exe"
+  OutFile "garden-@PACKAGE_VERSION@.exe"
 
   ;Default installation folder
   InstallDir "$PROGRAMFILES\garden"
@@ -85,11 +85,13 @@ SectionEnd
 Section "garden" GARDEN_BIN
 SetOutPath "$INSTDIR"
 
-file ../../bin/.libs/garden.exe
+file ../../bin/garden.exe
 file mingwm10.dll
+;file alleg42.dll
 
 !insertmacro MUI_STARTMENU_WRITE_BEGIN garden
 createShortCut "$SMPROGRAMS\$StartMenuFolder\garden.lnk" "$INSTDIR\garden.exe" "" "$INSTDIR\garden.exe"
+createShortCut "$SMPROGRAMS\$StartMenuFolder\configuration.lnk" "$INSTDIR\init.txt"
 !insertmacro MUI_STARTMENU_WRITE_END
 
 SectionEnd
@@ -245,6 +247,7 @@ Section "Uninstall"
   Delete $INSTDIR\init.txt
   Delete $INSTDIR\garden.exe
   Delete $INSTDIR\mingwm10.dll
+;  Delete $INSTDIR\alleg42.dll
   Delete $INSTDIR\uninstall.exe ; delete self (see explanation below why this works)
   RMDir  $INSTDIR
 
@@ -252,6 +255,7 @@ Section "Uninstall"
 
   Delete "$SMPROGRAMS\$StartMenuFolder\garden.lnk"
   Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall garden.lnk"
+  Delete "$SMPROGRAMS\$StartMenuFolder\configuration.lnk" 
   RMDir  "$SMPROGRAMS\$StartMenuFolder"
 
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\garden" 
