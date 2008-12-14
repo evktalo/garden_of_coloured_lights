@@ -26,6 +26,16 @@ AS_CASE([$host],
 AM_CONDITIONAL([WINDOWS_VERSION],
 	       [test "x$windows_version" = "xyes" ])
 
+dnl now the datadir specification, that is useful if one does want to play without installing
+AC_ARG_WITH([datadir],
+	    [AS_HELP_STRING([--with-datadir=path-to-your-garden-datafiles],
+			    [Normally you don't have to use this, but it is handy when you want to play the game without installing it or if you want to use already installed data. In the first case, use for instance --with-datadir=`pwd`/data (if it makes sense) ])], 
+	    [DATADIR_NAME="$with_datadir"],
+	    [DATADIR_NAME='$(datadir)/'garden])
+
+# Sets the data subdirectory
+AC_SUBST([DATADIR_NAME])
+
 # Checks for libraries.
 AC_CHECK_HEADER([allegro.h],
 		[],
@@ -66,10 +76,6 @@ AC_C_INLINE
 AC_HEADER_STDBOOL
 
 # Checks for library functions.
-
-# Sets the data subdirectory
-AC_SUBST([DATADIR_NAME],
-	 [garden])
 
 AC_CONFIG_FILES([Makefile
                  bin/Makefile
