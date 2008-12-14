@@ -2,6 +2,9 @@
 	* configure.ac, bin/Makefile.am: Added a possibility to specify a data
 	folder to ./configure in order to allow playing just after compilation
 	* README: Added basic information there.
+	* input.c (jstick_calibrate): Added notification for lucky owners of digital
+	joysticks that don't require calibration :-)
+	* menu.c (key_box): Made the definition of keys short and sane.
 2008-12-12 Matěj Týč <bubla@users.sf.net>
 	* display_init.c: Made the code in coat_sprite() function slower, but
 	safer (forced usage of getpixel instead of _getpixel)

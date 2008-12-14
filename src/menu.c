@@ -507,60 +507,17 @@ void key_box (const char ktext[], int command)
 
   int i;
   int anykey = 0;
-
+  
   do
   {
-
-    do
-    {
-      thing++;
-    }
-    while (ticked == 0);
-    ticked = 0;
-    key_wait--;
-
-
-    anykey = 0;
-
-    for (i = KEY_A; i < KEY_CAPSLOCK + 1; i++)
-    {
-      if (key[i])
-      {
-	anykey = 1;
-      }
-    }
-
-    if (anykey == 0)
-      key_wait = 0;
-
-
-    if (key_wait > 0)
-      continue;
-
-
-    if (key_wait <= 0)
-    {
-
-      for (i = KEY_A; i < KEY_CAPSLOCK + 1; i++)
-      {
-	if (key[i])
-	{
-	  inputted = i;
-	}
-      }
-    }
-//   while(acceptable_char(inputted) == 0);
-    if (acceptable_char (inputted) != 0)
-      break;
-
-  }
-  while (TRUE);
-
-
+	rest(200);
+	clear_keybuf();
+  	while (keypressed() != TRUE)
+  		rest(20);
+  	inputted = readkey() >> 8; /* the conversion to the right key format */
+  }/* if inputted is acceptable, then we want out of this loop  */
+  while(acceptable_char(inputted) != 1);
   player.key[command] = inputted;
-
-  key_wait = 10;
-
 }
 
 

@@ -1039,33 +1039,44 @@ void init_joystick (void)
 
 void jstick_calibrate (void)
 {
-
   AL_CONST char *msg;
 
   if (num_joysticks == 0)
     return;
 
+  if(joy[0].flags & JOYFLAG_CALIBRATE) 
+  {/* We need to calibrate the joystick */
+	  while (joy[0].flags & JOYFLAG_CALIBRATE)
+	  {
+	    vsync ();
+	    clear_bitmap (screen);
 
-  while (joy[0].flags & JOYFLAG_CALIBRATE)
+	    msg = calibrate_joystick_name (0);
+
+	    textprintf_centre_ex (screen, font, 320, 170, -1, -1, msg);
+	    textprintf_centre_ex (screen, font, 320, 200, -1, -1, "AND PRESS SPACE");
+
+	    do
+	    {
+	    }
+	    while (key[KEY_SPACE] == 0);
+
+	    if (calibrate_joystick (0) != 0)
+	      return;
+
+	  }
+  }/* the joystick is OK even without calibration */
+  else
   {
-    vsync ();
-    clear_bitmap (screen);
+	rectfill (screen, 120, 200, 510, 250, COL_OUTLINE);
+        rect (screen, 121, 201, 509, 249, COL_COL1);
 
-    msg = calibrate_joystick_name (0);
+        textprintf_centre_ex (screen, font, 320, 225, -1, -1, "YOUR JOYSTICK DOES NOT NEED CALIBRATION");
 
-    textprintf_centre_ex (screen, font, 320, 170, -1, -1, msg);
-    textprintf_centre_ex (screen, font, 320, 200, -1, -1, "AND PRESS SPACE");
+        vsync ();
 
-    do
-    {
-    }
-    while (key[KEY_SPACE] == 0);
-
-    if (calibrate_joystick (0) != 0)
-      return;
-
+	rest(2000);
   }
-
   return;
 
 }
