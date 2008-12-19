@@ -447,8 +447,7 @@ void startup_menu (void)
 
 // rectfill(display, 360, 430, 635, 461, TRANS_SH1_IN);
 
-    textprintf_right_ex (display, font, 625, 460, -1, -1,
-			 "COPYRIGHT 2007 LINLEY HENZELL");
+    textprintf_right_ex (display, font, 625, 460, -1, -1, "COPYRIGHT 2007 LINLEY HENZELL");
 
 
 
@@ -862,8 +861,6 @@ int ship_select (void)
 
     }
 
-
-
     anykey = 0;
 
     for (i = KEY_A; i < KEY_CAPSLOCK + 1; i++)
@@ -876,8 +873,6 @@ int ship_select (void)
 
     if (anykey == 0)
       key_wait = 0;
-
-
 
     if (key_wait == 0)
     {

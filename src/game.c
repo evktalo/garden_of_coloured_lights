@@ -150,27 +150,6 @@ void new_game (void)
 
   return;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /*
    * arena.level = 1;
    * 
@@ -338,8 +317,6 @@ void game_loop (void)
     else
       run_display (0);		// just does what is needed for collision
     // detection
-
-
 
     slacktime = 0;
 
