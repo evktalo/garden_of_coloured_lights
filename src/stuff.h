@@ -5,12 +5,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * 'Garden of coloured lights' is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,6 +32,6 @@ int angle_difference (int a1, int a2);
 void error_message_out (const char *errm);
 int delta_turn_towards_angle (int angle, int tangle, int turning);
 int delta_turn_towards_xy (int x1, int y1, int x2, int y2, int angle,
-			   int turning);
+                           int turning);
 int pos_or_neg (int a);
 int odd_even (int v);
