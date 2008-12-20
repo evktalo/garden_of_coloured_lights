@@ -5,9 +5,9 @@
 
 # Contributor: Your Name <muna@stcomp.cz>
 pkgname=garden
-pkgver=1.0.5
+pkgver=1.0.6
 pkgrel=1
-pkgdesc="A vertical shoot-em-up that is a piece of art"
+pkgdesc="Garden of coloured lights, a vertical shoot-em-up that is a piece of art"
 arch=(i686 x86_64)
 url="http://garden.sourceforge.net"
 license=('GPL')

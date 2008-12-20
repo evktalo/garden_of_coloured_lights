@@ -1058,8 +1058,9 @@ void jstick_calibrate (void)
 
 			do
 			{
+				rest(10);
 			}
-			while (key[KEY_SPACE] == 0);
+			while (readkey() != (KEY_SPACE << 8));
 
 			if (calibrate_joystick (0) != 0)
 				return;
@@ -1071,7 +1072,7 @@ void jstick_calibrate (void)
 		rectfill (screen, 120, 200, 510, 250, COL_OUTLINE);
 		rect (screen, 121, 201, 509, 249, COL_COL1);
 
-		textprintf_centre_ex (screen, font, 320, 225, -1, -1, "YOUR JOYSTICK DOES NOT NEED CALIBRATION");
+		textprintf_centre_ex (screen, font, 320, 219, -1, -1, "YOUR JOYSTICK DOES NOT NEED CALIBRATION");
 
 		vsync ();
 
@@ -1080,3 +1081,19 @@ void jstick_calibrate (void)
 	return;
 
 }
+
+void jstick_to_keypressed(void)
+{
+	poll_joystick();
+	if (joy[0].stick[options.joy_stick].axis[0].d1)
+	{ simulate_keypress(KEY_LEFT << 8); }
+	if (joy[0].stick[options.joy_stick].axis[0].d2)
+	{ simulate_keypress(KEY_RIGHT << 8); }
+	if (joy[0].stick[options.joy_stick].axis[1].d1)
+	{ simulate_keypress(KEY_UP << 8); }
+	if (joy[0].stick[options.joy_stick].axis[1].d2)
+	{ simulate_keypress(KEY_DOWN << 8); }
+	if (joy[0].button[options.joy_button[0]].b)
+	{ simulate_keypress(KEY_ENTER << 8); }
+}
+

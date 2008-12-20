@@ -21,3 +21,4 @@ void get_input (void);
 void init_joystick (void);
 
 void jstick_calibrate (void);
+void jstick_to_keypressed(void);

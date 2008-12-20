@@ -70,7 +70,6 @@ extern BITMAP *display;
 
 int menu_select;
 int key_wait;
-int thing;
 
 int counter2;
 int flower_dir;
@@ -148,8 +147,6 @@ void reset_menu_palette (void)
 
 void startup_menu (void)
 {
-
-
 	reset_menu_palette ();
 
 	// get custom config from initfile
@@ -180,7 +177,6 @@ void startup_menu (void)
 
 	while (TRUE)
 	{
-
 		clear_bitmap (display);
 		run_menu_background ();
 
@@ -195,7 +191,7 @@ void startup_menu (void)
 		textprintf_centre_ex (display, font, 320, 90, -1, -1,
 		                      "G A R D E N   O F   C O L O U R E D   L I G H T S");
 		if (options.tourist > 0)
-		{
+		{/* One plays in (cheat) tourist mode */
 			textprintf_centre_ex (display, font, 320, 130, -1, -1,
 			                      "TOURIST  MODE:  STAGE  %i", options.tourist);
 		}
@@ -215,21 +211,17 @@ void startup_menu (void)
 		rect (display, 368, y2 + 3, 641, y3 - 0, COL_BACK3);
 // rectfill(display, 370, y3, 600, y4, TRANS_DGREEN);
 
-
 		textprintf_ex (display, font, 400, my, -1, -1, "START GAME");
 		switch (arena.difficulty)
 		{
 		case 0:
-			textprintf_ex (display, font, 400, my + 30, -1, -1,
-			               "DIFFICULTY - NORMAL");
+			textprintf_ex (display, font, 400, my + 30, -1, -1, "DIFFICULTY - NORMAL");
 			break;
 		case 1:
-			textprintf_ex (display, font, 400, my + 30, -1, -1,
-			               "DIFFICULTY - HARD");
+			textprintf_ex (display, font, 400, my + 30, -1, -1, "DIFFICULTY - HARD");
 			break;
 		case 2:
-			textprintf_ex (display, font, 400, my + 30, -1, -1,
-			               "DIFFICULTY - PUNISHMENT");
+			textprintf_ex (display, font, 400, my + 30, -1, -1, "DIFFICULTY - PUNISHMENT");
 			break;
 		}
 // textprintf_ex(display [2], font, 400, 260, -1, -1, "STAGE - %i", arena.starting_level);
@@ -250,11 +242,9 @@ void startup_menu (void)
 		if (options.joystick)
 		{
 			if (options.key_or_joy == 1)
-				textprintf_ex (display, font, 400, my + 60, -1, -1,
-				               "CONTROLS - JOYSTICK");
+				textprintf_ex (display, font, 400, my + 60, -1, -1, "CONTROLS - JOYSTICK");
 			else
-				textprintf_ex (display, font, 400, my + 60, -1, -1,
-				               "CONTROLS - KEYBOARD");
+				textprintf_ex (display, font, 400, my + 60, -1, -1, "CONTROLS - KEYBOARD");
 		}
 		else
 		{
@@ -265,35 +255,16 @@ void startup_menu (void)
 
 		}
 
-// arena.just_got_highscore = 1;
-
-
-		/* y1 = 197;
-		 y2 = 235 + arena.just_got_highscore * 30;
-		 y3 = 264 + arena.just_got_highscore * 30;
-		 y4 = 341;*/
-
-
 		my = 270;
 
 		y2 = my + 7 + arena.just_got_highscore * 30;
 		y3 = my + 29 + arena.just_got_highscore * 30;
 
-// rectfill(display, 50, 197, 250, 227, TRANS_B1_IN);
-
 		if (arena.just_got_highscore > 0)
 		{
 			rectfill (display, 0, y2 - 5, 250, y3, COL_COL3);
 			rect (display, -1, y2 - 5 - 2, 250 + 2, y3 + 2, COL_COL4);
-//  rectfill(display, 50, 227 + 5, 250, y4, TRANS_B1_IN);
 		}
-		/*  else
-		  {
-		   rectfill(display, 50, 227 + 5, 250, y2, TRANS_B1_IN);
-		   rectfill(display, 50, y2 + 5, 250, y3, TRANS_YELLOW_IN);
-		   rectfill(display, 50, y3 + 5, 250, y4, TRANS_B1_IN);
-		  }*/
-
 
 		textprintf_right_ex (display, font, 137, my, -1, -1, "HIGH");
 		textprintf_ex (display, font, 157, my, -1, -1, "SCORES");
@@ -310,27 +281,150 @@ void startup_menu (void)
 		textprintf_ex (display, font, 157, my + 100, -1, -1, "%i",
 		               options.highscore[2]);
 
-// rectfill(display, 144, 232, 149, 341, 0);
-
-		/*if (keypressed())
-		   {
-		   key_wait = 0;
-		   circle(display [2], 100, 100, 5, 10);
-		   } */
-
-		anykey = 0;
-
-		for (i = KEY_A; i < KEY_CAPSLOCK + 1; i++)
+		if ( ( keypressed() ) && key_wait == 0)
 		{
-			if (key[i])
+			int pressed_key = readkey() >> 8;
+			clear_keybuf();
+			if (pressed_key == KEY_UP || pressed_key == KEY_8_PAD)
 			{
-				anykey = 1;
+				menu_select--;
+				if (menu_select < 0)
+					menu_select = MENU_EXIT;
+				if (menu_select == MENU_CALIBRATE && options.joystick == 0)
+					menu_select = MENU_KEYS;
+				if (menu_select == MENU_JOY_OR_KEYS && options.joystick == 0)
+					menu_select = MENU_JOY_OR_KEYS - 1;
+				key_wait = 7;
+			}
+			if (pressed_key == KEY_DOWN || pressed_key == KEY_2_PAD)
+			{
+				menu_select++;
+				if (menu_select > MENU_EXIT)
+					menu_select = 0;
+				if (menu_select == MENU_CALIBRATE && options.joystick == 0)
+					menu_select = MENU_EXIT;
+				if (menu_select == MENU_JOY_OR_KEYS && options.joystick == 0)
+					menu_select = MENU_KEYS;
+				key_wait = 7;
+			}
+			if (pressed_key == KEY_LEFT || pressed_key == KEY_4_PAD)
+			{
+				if (menu_select == MENU_JOY_OR_KEYS)
+				{
+					if (options.key_or_joy == 0)
+						options.key_or_joy = 1;
+					else
+						options.key_or_joy = 0;
+				}
+				if (menu_select == MENU_DIFFICULTY)
+				{
+					arena.difficulty--;
+					if (arena.difficulty < 0)
+						arena.difficulty = 0;
+				}
+				key_wait = 11;
+			}
+			if (pressed_key == KEY_RIGHT || pressed_key == KEY_6_PAD)
+			{
+				if (menu_select == MENU_JOY_OR_KEYS)
+				{
+					if (options.key_or_joy == 0)
+						options.key_or_joy = 1;
+					else
+						options.key_or_joy = 0;
+				}
+				if (menu_select == MENU_DIFFICULTY)
+				{
+					arena.difficulty++;
+					if (arena.difficulty > 2)
+						arena.difficulty = 2;
+				}
+				key_wait = 11;
+			}
+
+			if (pressed_key == KEY_ESC)
+				if (run_pause () == 1)
+					exit(0);
+
+			if (pressed_key == KEY_ENTER || pressed_key == KEY_SPACE || pressed_key == KEY_Z)
+			{
+				if (menu_select == MENU_EXIT)
+					if (run_pause () == 1)
+						exit(0);
+
+				if (menu_select == MENU_KEYS)
+				{
+					key_wait = 10;
+					define_keys ();
+					key_wait = 10;
+				}
+
+				if (menu_select == MENU_CALIBRATE)
+				{
+					jstick_calibrate ();
+					key_wait = 20;
+					ticked = 0;
+				}
+
+				if (menu_select == MENU_START)
+				{
+					ticked = 0;
+					key_wait = 30;
+					if (ship_select () == 1)
+					{
+						clear_bitmap (display);
+						new_game ();
+						game_loop ();
+						if (arena.level == 5)
+							congratulations ();
+						reset_menu_palette ();
+						key_wait = 10;	// was 1
+						flower_dir *= -1;
+						ticked = 0;
+					}
+					else
+						key_wait = 20;
+				}
+				else
+					key_wait = 20;
+			}
+		}//endif (keypressed() && key_wait == 0)
+		else
+		{
+			int keys_before = 1;
+			if (keypressed())
+			{
+				clear_keybuf(); /* we are not interested in keys in the queue */
+				rest(20);
+			}
+			else
+			{
+				keys_before = 0; /* there were no keys pressed before */
+				rest(10);
+			}
+
+			jstick_to_keypressed();
+			key_wait -= 2;
+			if ( ( !keypressed() && !keys_before ) || key_wait <= 0)
+			{/* we can process next keypress since the previous keypress has ended */
+				key_wait = 0; 
 			}
 		}
 
-		if (anykey == 0)
-			key_wait = 0;
+		textprintf_right_ex (display, font, 625, 460, -1, -1, "COPYRIGHT 2007 LINLEY HENZELL");
 
+		do
+		{
+			rest(5);
+		}
+		while (ticked == 0);
+		ticked = 0;
+
+		vsync ();
+		blit (display, screen, 0, 0, 0, 0, 640, 480);
+
+
+		/*
 
 
 		if (key_wait == 0)
@@ -359,8 +453,6 @@ void startup_menu (void)
 			}
 			if (key[KEY_LEFT] || key[KEY_4_PAD])
 			{
-//   if (menu_select == 2)
-//    arena.starting_level = 1;
 				if (menu_select == MENU_JOY_OR_KEYS)
 				{
 					if (options.key_or_joy == 0)
@@ -378,8 +470,6 @@ void startup_menu (void)
 			}
 			if (key[KEY_RIGHT] || key[KEY_6_PAD])
 			{
-//   if (menu_select == 2)
-//    arena.starting_level = 2;
 				if (menu_select == MENU_JOY_OR_KEYS)
 				{
 					if (options.key_or_joy == 0)
@@ -396,8 +486,6 @@ void startup_menu (void)
 				key_wait = 7;
 			}
 
-//  if (key [KEY_ESC])
-//   exit(0);
 			if (key[KEY_ENTER] || key[KEY_SPACE] || key[KEY_Z])
 			{
 				if (menu_select == MENU_EXIT)
@@ -419,7 +507,6 @@ void startup_menu (void)
 
 				if (menu_select == MENU_START)
 				{
-//    arena.level = 0;//arena.starting_level;
 					ticked = 0;
 					key_wait = 30;
 					if (ship_select () == 1)
@@ -459,7 +546,7 @@ void startup_menu (void)
 		ticked = 0;
 
 		vsync ();
-		blit (display, screen, 0, 0, 0, 0, 640, 480);
+		blit (display, screen, 0, 0, 0, 0, 640, 480); */
 
 
 
@@ -861,37 +948,38 @@ int ship_select (void)
 			print_standard_names (320, 80, column[row] - 1);
 
 		}
+/*
+		poll_joystick();
+		if (joy[0].stick[options.joy_stick].axis[0].d1)
+		{ simulate_keypress(KEY_LEFT << 8); }
+		if (joy[0].stick[options.joy_stick].axis[0].d2)
+		{ simulate_keypress(KEY_RIGHT << 8); }
+		if (joy[0].stick[options.joy_stick].axis[1].d1)
+		{ simulate_keypress(KEY_UP << 8); }
+		if (joy[0].stick[options.joy_stick].axis[1].d2)
+		{ simulate_keypress(KEY_DOWN << 8); }
+		if (joy[0].button[options.joy_button[0]].b)
+		{ simulate_keypress(KEY_ENTER << 8); }*/
 
-		anykey = 0;
-
-		for (i = KEY_A; i < KEY_CAPSLOCK + 1; i++)
+		if ( ( keypressed() ) && key_wait == 0)
 		{
-			if (key[i])
-			{
-				anykey = 1;
-			}
-		}
-
-		if (anykey == 0)
-			key_wait = 0;
-
-		if (key_wait == 0)
-		{
-			if (key[KEY_UP] || key[KEY_8_PAD])
+			int pressed_key = readkey() >> 8;
+			clear_keybuf();
+			if (pressed_key == KEY_UP || pressed_key == KEY_8_PAD)
 			{
 				row--;
 				if (row < 0)
 					row = 3;
 				key_wait = 7;
 			}
-			if (key[KEY_DOWN] || key[KEY_2_PAD])
+			if (pressed_key == KEY_DOWN || pressed_key == KEY_2_PAD)
 			{
 				row++;
 				if (row > 3)
 					row = 0;
 				key_wait = 7;
 			}
-			if (key[KEY_LEFT] || key[KEY_4_PAD])
+			if (pressed_key == KEY_LEFT || pressed_key == KEY_4_PAD)
 			{
 				do
 				{
@@ -905,7 +993,7 @@ int ship_select (void)
 				            (column[row] == column[3]) > 1));
 				key_wait = 7;
 			}
-			if (key[KEY_RIGHT] || key[KEY_6_PAD])
+			if (pressed_key == KEY_RIGHT || pressed_key == KEY_6_PAD)
 			{
 				do
 				{
@@ -949,27 +1037,41 @@ int ship_select (void)
 
 			}
 
-			if (key[KEY_ESC])
+			if (pressed_key == KEY_ESC)
 				return 0;
 
-			if (key[KEY_ENTER] || key[KEY_SPACE] || key[player.key[CKEY_FIRE1]])
+			if (pressed_key == KEY_ENTER || pressed_key == KEY_SPACE || pressed_key == KEY_Z)
 			{
 				if (row == 0 && column[0] == 8)
 					return 0;
 				break;
 			}
-		}
+		}//endif (keypressed() && key_wait == 0)
 		else
-			key_wait--;
+		{		
+			int keys_before = 1;
+			if (keypressed())
+				clear_keybuf(); /* we are not interested in keys in the queue */
+			else
+				keys_before = 0; /* there were no keys pressed before */
 
+			rest(20);
 
+			jstick_to_keypressed();
+			key_wait -= 2;
+			if ( ( !keypressed() && !keys_before ) || key_wait <= 0)
+			{/* we can process next keypress since the previous keypress has ended */
+				key_wait = 0; 
+			}
+		}
 
-
+		/*
 		do
 		{
-			thing++;
+			rest(5);
 		}
 		while (ticked == 0);
+		*/
 		ticked = 0;
 
 		vsync ();

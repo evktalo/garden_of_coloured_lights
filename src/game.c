@@ -318,11 +318,9 @@ void game_loop (void)
 			run_display (0);		// just does what is needed for collision
 		// detection
 
-		slacktime = 0;
-
 		do
 		{
-			// slacktime ++;
+			rest(5);
 		}
 		while (ticked == 0);
 		ticked--;
@@ -334,6 +332,7 @@ void game_loop (void)
 		{
 			if (run_pause () == 1)
 				playing = 0;
+			clear_keybuf();
 		}
 
 	}

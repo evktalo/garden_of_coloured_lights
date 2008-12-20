@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.62)
-AC_INIT([GARDEN_OF_COLOURED_LIGHTS], [1.0.5], [bubla@users.sourceforge.net])
+AC_INIT([GARDEN_OF_COLOURED_LIGHTS], [1.0.6], [bubla@users.sourceforge.net])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall])
 AC_CONFIG_SRCDIR([src/input.h])

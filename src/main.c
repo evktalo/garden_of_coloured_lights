@@ -276,7 +276,7 @@ void init_at_startup(void)
 //#ifdef ASDFASDF
 	do
 	{
-		rest(15);
+		rest(20);
 	} while (ticked < 200); // 5 second delay in accordance with competition rules
 
 	ticked = 0;
