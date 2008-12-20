@@ -1,4 +1,4 @@
-gardendir=$(datadir)/@DATADIR_NAME@
+gardendir=@DATADIR_NAME@
 nobase_dist_garden_DATA = init.txt
 
 # wavsdir=$(gardendir)/wavs

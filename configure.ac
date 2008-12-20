@@ -35,6 +35,8 @@ AC_ARG_WITH([datadir],
 
 # Sets the data subdirectory
 AC_SUBST([DATADIR_NAME])
+AM_CONDITIONAL([NO_EXISTING_DATA],
+	       [test "x$enable_datadir" != "xyes"])
 
 # Checks for libraries.
 AC_CHECK_HEADER([allegro.h],
