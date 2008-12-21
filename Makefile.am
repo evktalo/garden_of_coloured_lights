@@ -1,2 +1,6 @@
 ACLOCAL_AMFLAGS= -I m4
-SUBDIRS = bin data resources
+SUBDIRS = bin resources
+
+if NO_EXISTING_DATA
+SUBDIRS += data 
+endif #NO_EXISTING_DATA
