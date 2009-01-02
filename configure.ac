@@ -2,7 +2,9 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.62)
-AC_INIT([GARDEN_OF_COLOURED_LIGHTS], [1.0.6], [bubla@users.sourceforge.net])
+AC_INIT([GARDEN], 
+	[1.0.7], 
+	[bubla@users.sourceforge.net])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall])
 AC_CONFIG_SRCDIR([src/input.h])
@@ -15,6 +17,15 @@ AC_PROG_LIBTOOL
 LT_PROG_RC
 
 AC_CANONICAL_HOST
+
+dnl
+dnl Check whether it makes sense to install a garden.desktop file
+dnl
+AC_CHECK_PROG([have_freedesktop],
+	      [update-desktop-database],
+	      [yes])
+AM_CONDITIONAL([HAVE_FREEDESKTOP],
+	       [test "x$have_freedesktop" = "xyes"])
 
 AS_CASE([$host],
         [*mingw* | *cygwin*],

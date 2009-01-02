@@ -20,19 +20,16 @@ replaces=()
 backup=()
 options=()
 install=
-source=(http://downloads.sourceforge.net/garden/garden_of_coloured_lights-$pkgver.tar.gz)
+source=(http://downloads.sourceforge.net/garden/$pkgname-$pkgver.tar.gz)
 noextract=()
 md5sums=(bee7c4cf9d69cd22495ec78832e0b66c) #generate with 'makepkg -g'a
 
 build() 
 {
-  cd $srcdir/garden_of_coloured_lights-$pkgver  
+  cd $srcdir/$pkgname-$pkgver  
   ./configure --prefix=/usr
   make || return 1
   make DESTDIR=$pkgdir install || return 1
-
-  echo "Now refresh icon cache in order to have icons in the menus"
 }
 
 # vim:set ts=2 sw=2 et:
-
