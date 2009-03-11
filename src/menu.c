@@ -575,7 +575,6 @@ void define_keys (void)
 	set_config_int ("Misc", "key_fire2", player.key[CKEY_FIRE2]);
 	set_config_int ("Misc", "key_fire3", player.key[CKEY_FIRE3]);
 	set_config_int ("Misc", "key_slow", player.key[CKEY_SLOW]);
-
 }
 
 

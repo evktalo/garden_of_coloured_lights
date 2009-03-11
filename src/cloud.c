@@ -26,27 +26,17 @@
 #include "globvars.h"
 
 #include "stuff.h"
-
-
+#include "cloud.h"
 #include "palette.h"
-
-
-void run_clouds (void);
-void destroy_cloud (int b);
-int quick_cloud (int type, int x, int y, int x_speed, int y_speed,
-                 int timeout, int colour, int drag);
-
 
 void init_clouds (void)
 {
-
 	int c;
 
 	for (c = 0; c < NO_CLOUDS; c++)
 	{
 		cloud[c].type = CLOUD_NONE;
 	}
-
 }
 
 int create_cloud (int type)
@@ -73,7 +63,6 @@ int create_cloud (int type)
 
 void run_clouds (void)
 {
-
 	int c;
 
 	for (c = 0; c < NO_CLOUDS; c++)
@@ -213,7 +202,6 @@ void run_clouds (void)
 			break;
 		}				// cloud may be destroyed here
 	}
-
 }
 
 
@@ -238,7 +226,6 @@ int quick_cloud (int type, int x, int y, int x_speed, int y_speed,
 	}
 
 	return c;
-
 }
 
 

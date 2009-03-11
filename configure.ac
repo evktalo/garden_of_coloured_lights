@@ -94,6 +94,7 @@ AC_CONFIG_FILES([Makefile
                  bin/Makefile
 		 data/Makefile
 		 resources/Makefile
+	 	 docs/garden.doxyfile
 		 pkgs/w32/winstaller.nsi])
 
 AC_OUTPUT
