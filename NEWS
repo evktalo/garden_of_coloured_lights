@@ -1,4 +1,12 @@
-Bonus life each 2000 is now delivered every time.
-New splash screen
+1.0.8:
+Bugfixes:
+	- README is part of the Win32 package, too.
+	- The 'exit menu' bug has been fixed.
 
-planned: Smarter CPU usage
+1.0.6:	
+Features:
+	- Smart CPU usage
+
+1.0.5:
+Bugfixes:
+	- Bonus life each 2000 is now delivered every time.

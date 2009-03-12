@@ -55,7 +55,8 @@ AC_CHECK_HEADER([allegro.h],
 		[have_allegro="no"])
 
 # first check for 'official allegro'
-AS_IF([test "x$have_allegro" != "xno" -a "x$have_allegro" != "xyes"],
+# The official allegro does not support cross-compiling, though...
+AS_IF([test "x$have_allegro" != "xno" -a "x$have_allegro" != "xyes" -a "x$host_os" = "x$build_os"],
       [AM_PATH_ALLEGRO([4.2.0], 
 		       [have_allegro="yes"
 			LIBS="$allegro_LIBS $LIBS"]) ]) 

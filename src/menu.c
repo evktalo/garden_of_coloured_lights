@@ -343,14 +343,12 @@ void startup_menu (void)
 			}
 
 			if (pressed_key == KEY_ESC)
-				if (run_pause () == 1)
-					exit(0);
+				exit(0);
 
 			if (pressed_key == KEY_ENTER || pressed_key == KEY_SPACE || pressed_key == KEY_Z)
 			{
 				if (menu_select == MENU_EXIT)
-					if (run_pause () == 1)
-						exit(0);
+					exit(0);
 
 				if (menu_select == MENU_KEYS)
 				{

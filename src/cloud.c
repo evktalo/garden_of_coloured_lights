@@ -61,6 +61,11 @@ int create_cloud (int type)
 
 }
 
+void destroy_cloud (int c)
+{
+	cloud[c].type = CLOUD_NONE;
+}
+
 void run_clouds (void)
 {
 	int c;
@@ -231,8 +236,3 @@ int quick_cloud (int type, int x, int y, int x_speed, int y_speed,
 
 
 
-void destroy_cloud (int c)
-{
-	cloud[c].type = CLOUD_NONE;
-
-}

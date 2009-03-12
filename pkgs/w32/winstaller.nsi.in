@@ -2,7 +2,6 @@
 ;You have to have a `makensis` utility (available for free under Windows and Linux) to generate .exe installer files.
 ;In order to be succesful, you also have to supply required files (look at the uninstaller section where they are mentioned at one place)
 ;
-;
 ;NSIS Modern User Interface
 ;Written by Matěj Týč
 
@@ -92,6 +91,7 @@ file mingwm10.dll
 !insertmacro MUI_STARTMENU_WRITE_BEGIN garden
 createShortCut "$SMPROGRAMS\$StartMenuFolder\garden.lnk" "$INSTDIR\garden.exe" "" "$INSTDIR\garden.exe"
 createShortCut "$SMPROGRAMS\$StartMenuFolder\configuration.lnk" "$INSTDIR\init.txt"
+createShortCut "$SMPROGRAMS\$StartMenuFolder\README.lnk" "$INSTDIR\README.txt"
 !insertmacro MUI_STARTMENU_WRITE_END
 
 SectionEnd
@@ -99,6 +99,7 @@ SectionEnd
 Section "garden" GARDEN_DATA
 SetOutPath "$INSTDIR"
 file ../../data/init.txt
+file /oname=README.txt ../../README 
 
 SetOutPath "$INSTDIR\beat"
 file ../../data/beat/arp.wav
@@ -245,6 +246,7 @@ Section "Uninstall"
   RMDir  $INSTDIR\wavs
 
   Delete $INSTDIR\init.txt
+  Delete $INSTDIR\README.txt
   Delete $INSTDIR\garden.exe
   Delete $INSTDIR\mingwm10.dll
 ;  Delete $INSTDIR\alleg42.dll
@@ -256,6 +258,7 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\$StartMenuFolder\garden.lnk"
   Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall garden.lnk"
   Delete "$SMPROGRAMS\$StartMenuFolder\configuration.lnk" 
+  Delete "$SMPROGRAMS\$StartMenuFolder\README.lnk" 
   RMDir  "$SMPROGRAMS\$StartMenuFolder"
 
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\garden" 

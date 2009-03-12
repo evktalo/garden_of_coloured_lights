@@ -1,3 +1,9 @@
+2009-03-12 Matěj Týč <bubla@users.sf.net>
+	* configure.ac: Fixed the file for cross-compilations
+	* src/menu.c: Removed the code that caused trouble when exitting under
+	Windows
+	* pkgs/w32/winstaller.nsi.in: Added README to Windows installation
+
 2008-12-20 Matěj Týč <bubla@users.sf.net>
 	* src/game.c (game_loop): Made the 'quit game' possibility better,
 	added 'rest(5)' command to the 'wait for the tick' loop so that garden
@@ -6,6 +12,7 @@
 	navigating through menus + made the menu input processing more sane.
 	* src/* : Converted spaces to tabs using 'astyle' program (just the
 	code reformat that shouldn't have any side effects)
+
 2008-12-14 Matěj Týč <bubla@users.sf.net>
 	* configure.ac, bin/Makefile.am: Added a possibility to specify a data
 	folder to ./configure in order to allow playing just after compilation
@@ -13,12 +20,15 @@
 	* src/input.c (jstick_calibrate): Added notification for lucky owners of digital
 	joysticks that don't require calibration :-)
 	* menu.c (key_box): Made the definition of keys short and sane.
+
 2008-12-12 Matěj Týč <bubla@users.sf.net>
 	* src/display_init.c: Made the code in coat_sprite() function slower, but
 	safer (forced usage of getpixel instead of _getpixel)
+
 2008-12-11 Matěj Týč <bubla@users.sf.net>
 	* src/enemy.c: Fixed a bug causing that the player didn't get the right
 	bonus life award due to score bonuses.
+
 2008-11-20 Matěj Týč <bubla@users.sf.net>
 	* src/input.c: Added correct handling of config file storage
 	* src/display_init.c, src/main.c, src/sound.c: Added more correct handling of data
