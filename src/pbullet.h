@@ -15,6 +15,8 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
+
 void run_pbullets (void);
 int create_pbullet (int type);
 int init_pbullets (void);

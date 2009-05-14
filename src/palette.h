@@ -15,6 +15,7 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
 
 void define_palette (void);
 int build_new_palette (int base, int rshift, int gshift, int bshift);
@@ -125,7 +126,8 @@ enum
 #define TRANS_BACK3_OUTLINE 238
 enum
 {
-	TRANS_CONVERT_1 = 239,
+	TRANS_CONVERT_0 = 239,
+	TRANS_CONVERT_1,
 	TRANS_CONVERT_2,
 	TRANS_CONVERT_3,
 	TRANS_CONVERT_4,
@@ -133,9 +135,12 @@ enum
 	TRANS_CONVERT_6,
 	TRANS_CONVERT_7,
 	TRANS_CONVERT_8,
-	TRANS_CONVERT_9,
+	NUM_TRANS_CONVERTS,
 	CONVERT_WHITE_TO_GREY
 };
+
+/* this one is defined in palette.c. It helps to avoid 'switch' statements */
+extern unsigned char trans_converts[NUM_TRANS_CONVERTS];
 
 // don't think these do anything at the moment:
 #define TRANS_REVERSE 225

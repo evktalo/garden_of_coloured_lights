@@ -2,7 +2,7 @@
 #define SYSTEM_H
 
 #ifdef HAVE_CONFIG_H
-#include "configure.h"
+#include "config.h"
 #endif /* HAVE_CONFIG_H */
 
 #ifdef WINDOWS_VERSION

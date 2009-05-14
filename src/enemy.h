@@ -15,6 +15,7 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
 
 int create_enemy (int type);
 

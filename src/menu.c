@@ -17,7 +17,7 @@
 
 
 
-#include "config.h"
+#include "data.h"
 
 #include "allegro.h"
 

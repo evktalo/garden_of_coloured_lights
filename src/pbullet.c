@@ -15,8 +15,7 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#include "config.h"
+#include "data.h"
 
 #include <math.h>
 
@@ -29,7 +28,6 @@
 #include "sound.h"
 #include "cloud.h"
 
-
 #include "palette.h"
 
 void run_pbullets (void);
@@ -39,7 +37,6 @@ void pbullet_explode (int b, int hit);
 void run_seeker (int b);
 void find_new_seeker_target (int b);
 void explosion (int x, int y, int r, int d, int b);
-
 
 void init_pbullets (void)
 {
@@ -136,7 +133,6 @@ void run_pbullets (void)
 				}
 			}
 
-
 			check_pbullet_collision (b, 0);
 			break;
 		default:
@@ -185,7 +181,6 @@ void run_pbullets (void)
 
 }
 
-
 void run_seeker (int b)
 {
 
@@ -195,7 +190,6 @@ void run_seeker (int b)
 
 	if (pbullet[b].target == -1 && pbullet[b].timeout % 5 == 0)
 		find_new_seeker_target (b);
-
 
 	if (pbullet[b].target != -1)
 	{
@@ -207,7 +201,6 @@ void run_seeker (int b)
 		target_x = player.x;
 		target_y = player.y;
 	}
-
 
 //    pbullet[b].acceleration += 80;
 	/*    pbullet[b].acceleration += 300;
@@ -276,14 +269,10 @@ void run_seeker (int b)
 
 }
 
-
-
-
 void find_new_seeker_target (int b)
 {
 
 	int enemies_found = 0;
-
 
 	int e;
 	int x = pbullet[b].x;
@@ -331,12 +320,8 @@ void find_new_seeker_target (int b)
 
 }
 
-
-
-
 void beam_collision (int m)
 {
-
 
 	int e;
 
@@ -405,7 +390,6 @@ void beam_collision (int m)
 			          {
 			           create_cloud(w, CLOUD_EXPLODE, which_explode, x, j, 0, 0, 3 + grand(3));
 
-
 			          }
 			         }*/
 			hurt_enemy (e, dam, m);
@@ -414,15 +398,10 @@ void beam_collision (int m)
 		}
 	}
 
-
-
-
 }
-
 
 void swbeam_collision (int m)
 {
-
 
 	int e;
 
@@ -431,7 +410,6 @@ void swbeam_collision (int m)
 	int i;
 
 	dam = 1400 + player.swbeam_level[m] * 240;
-
 
 	x = player.wx[m];
 
@@ -495,12 +473,7 @@ void swbeam_collision (int m)
 		}
 	}
 
-
-
-
 }
-
-
 
 int check_pbullet_collision (int b, int survive)
 {
@@ -548,7 +521,6 @@ int check_pbullet_collision (int b, int survive)
 		return 0;			// bullet not destroyed
 	}
 
-
 }
 
 void explosion (int x, int y, int r, int d, int b)
@@ -578,8 +550,6 @@ void explosion (int x, int y, int r, int d, int b)
 	}
 
 }
-
-
 
 void pbullet_explode (int b, int hit)
 {
@@ -817,7 +787,6 @@ void pbullet_explode (int b, int hit)
 	destroy_pbullet (b);
 
 }
-
 
 void destroy_pbullet (int b)
 {

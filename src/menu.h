@@ -15,4 +15,6 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
+
 void startup_menu (void);

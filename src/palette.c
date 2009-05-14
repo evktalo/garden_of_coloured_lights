@@ -24,7 +24,7 @@
  */
 
 
-#include "config.h"
+#include "data.h"
 
 #include "allegro.h"
 
@@ -35,6 +35,7 @@
 COLOR_MAP trans_table;
 //COLOR_MAP trans_table2;
 
+unsigned char trans_converts[NUM_TRANS_CONVERTS] = {TRANS_CONVERT_0, TRANS_CONVERT_1, TRANS_CONVERT_2, TRANS_CONVERT_3, TRANS_CONVERT_4, TRANS_CONVERT_5, TRANS_CONVERT_6, TRANS_CONVERT_7, TRANS_CONVERT_8};
 //int blend_function(int base, int trans, RGB *rgbl);
 int blend_function (int trans, int base, RGB * rgbl);
 int blend_function2 (int trans, int base, RGB * rgbl);
@@ -987,15 +988,15 @@ int blend_function(int trans, int base, RGB *rgbl)
 int blend_function (int trans, int base, RGB * rgbl)
 {
 
-	if (trans >= TRANS_CONVERT_1 && trans <= TRANS_CONVERT_9)
+	if (trans >= TRANS_CONVERT_0 && trans <= TRANS_CONVERT_8)
 	{
 		if (base == 0)
 			return 0;
 
 		if (((base - 1) / 13) % 2 == 1)
-			return (trans - TRANS_CONVERT_1) * 26 + 15;
+			return (trans - TRANS_CONVERT_0) * 26 + 15;
 		else
-			return (trans - TRANS_CONVERT_1) * 26 + 28;
+			return (trans - TRANS_CONVERT_0) * 26 + 28;
 
 	}
 

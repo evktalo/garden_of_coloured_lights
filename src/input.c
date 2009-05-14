@@ -16,7 +16,7 @@
  */
 
 
-#include "config.h"
+#include "data.h"
 
 #include "allegro.h"
 
@@ -1082,6 +1082,8 @@ void jstick_calibrate (void)
 
 }
 
+/** Pretends that we pressed a key if we just move with the joy
+ */
 void jstick_to_keypressed(void)
 {
 	poll_joystick();

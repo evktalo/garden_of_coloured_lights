@@ -15,6 +15,10 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
+
+#ifndef DATA_H
+#define DATA_H
 
 #define ALLEGRO_STATICLINK
 
@@ -162,7 +166,6 @@ enum
 
 struct playerstruct
 {
-
 	int key[CKEY_END];
 	int x;
 	int y;
@@ -231,8 +234,6 @@ struct playerstruct
 	int ring_index;
 	int move_x;
 	int move_y;
-
-
 };
 
 struct eclassstruct
@@ -249,10 +250,7 @@ struct eclassstruct
 	char priority;
 	int score;
 	int xp;
-
 // int speed;
-
-
 };
 
 enum
@@ -276,7 +274,7 @@ enum
 	CLOUD_RSHOCK3,
 	CLOUD_RSHOCK4,
 	CLOUD_RSHOCK5,
-	CLOUD_TSHOCK,			// tiny - mgshock without parts
+	CLOUD_TSHOCK,	/**< tiny - mgshock without parts */
 	CLOUD_PETAL1,
 	CLOUD_PETAL1_DEBRIS,
 	CLOUD_PETAL2_DEBRIS,
@@ -356,7 +354,6 @@ struct enemystruct
 enum
 {
 	ENEMY_NONE,
-
 // L1
 	ENEMY_SWOOPER1,
 	ENEMY_DARTER1,
@@ -406,7 +403,6 @@ enum
 
 	NO_ENEMY_TYPES
 };
-
 
 enum
 {
@@ -500,15 +496,11 @@ struct pbulletstruct
 	int level;
 };
 
-
-
 enum
 {
 	MULTI_NONE,
 	MULTI_BASIC
 };
-
-
 
 struct arenastruct
 {
@@ -547,7 +539,7 @@ struct arenastruct
 	int beam;
 	int old_beam;
 
-	int part_x1[18][16];		// just needs to be [18] [14] but I added padding after a stupid mistake.
+	int part_x1[18][16];	/**< just needs to be [18] [14] but I added padding after a stupid mistake. */
 	int part_y1[18][16];
 	int part_x2[18][16];
 	int part_y2[18][16];
@@ -572,8 +564,6 @@ struct arenastruct
 	int bone_subtype[2][NO_BONES];
 	int bone_x[2][NO_BONES];
 	int bone_y[2][NO_BONES];
-
-
 };
 
 struct bossstruct
@@ -628,11 +618,11 @@ struct bossstruct
 
 struct optionstruct
 {
-	int sound_init;		// if 0, sound isn't initialised at all. Changed in config file only.
-	int sound_mode;		// mono, stereo, reversed, off
-	int run_vsync;		// on or off
-	int sound_volume;		// sound fx volume; if 0 sound effects not played
-	int ambience_volume;		// if 0 ambience not played
+	int sound_init;	/**< if 0, sound isn't initialised at all. Changed in config file only. */
+	int sound_mode;	/**< mono, stereo, reversed, off */
+	int run_vsync;	/**< on or off */
+	int sound_volume;	/**< sound fx volume; if 0 sound effects not played */
+	int ambience_volume;	/**< if 0 ambience not played */
 	int joystick;
 	int highscore[3];
 	int joy_button[4];
@@ -642,6 +632,8 @@ struct optionstruct
 	int key_or_joy;
 	int joy_stick;
 
-	int tourist;			// this is a cheat code entered via the initfile. See menu.c and game.c.
+	int tourist;	/**< this is a cheat code entered via the initfile. See menu.c and game.c. */
 
 };
+
+#endif /* DATA_H */

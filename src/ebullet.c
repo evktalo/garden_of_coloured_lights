@@ -15,7 +15,7 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
+#include "data.h"
 
 #include <math.h>
 

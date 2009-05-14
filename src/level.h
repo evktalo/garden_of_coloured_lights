@@ -15,6 +15,8 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
+
 void init_level (void);
 void run_level (void);
 int get_max_stage_score (void);

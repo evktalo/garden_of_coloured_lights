@@ -15,6 +15,13 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
+
+#ifndef STUFF_H
+#define STUFF_H
+
+#include <allegro.h>
+
 void init_trig (void);
 
 float angle_to_radians (int angle);
@@ -24,7 +31,9 @@ int grand (int number);
 int crandom (int number);
 int turn_towards_angle (int angle, int tangle, int turning);
 int turn_towards_xy (int x1, int y1, int x2, int y2, int angle, int turning);
+/** Returns a x component of a vector that has certain angle */
 inline int xpart (int angle, int length);
+/** Returns a y component of a vector that has certain angle */
 inline int ypart (int angle, int length);
 int pulsate (int speed, int amount, int county);
 int angle_difference (int a1, int a2);
@@ -35,3 +44,5 @@ int delta_turn_towards_xy (int x1, int y1, int x2, int y2, int angle,
                            int turning);
 int pos_or_neg (int a);
 int odd_even (int v);
+
+#endif /* STUFF_H */

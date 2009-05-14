@@ -15,6 +15,8 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
+
 // Global variables:
 //  at the moment these are all defined in main.c.
 //  but they have to be externed here so all modules with #include globvars.h can access them.

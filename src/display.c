@@ -15,8 +15,7 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#include "config.h"
+#include "data.h"
 
 #include "allegro.h"
 
@@ -30,7 +29,6 @@
 #define END_TRANS_MODE drawing_mode(DRAW_MODE_SOLID, NULL, 0, 0);
 
 extern RGB palet[2][256];
-
 
 BITMAP *display;
 
@@ -61,7 +59,6 @@ RLE_SPRITE *bone_RLE[BONE_RLES];
 
 RLE_SPRITE *trans_RLE[TRANS_RLES];
 
-
 void draw_background (void);
 void draw_background2 (void);
 void draw_background3 (void);
@@ -70,8 +67,6 @@ void draw_background4 (void);
 void shift_message (void);
 
 int damage_per_time;
-
-
 
 void indicate_fps (BITMAP * bmp, int play);
 
@@ -132,7 +127,6 @@ struct RLE_STRUCT petal1[SMALL_ROTATIONS];
 struct RLE_STRUCT petal2[SMALL_ROTATIONS];
 struct RLE_STRUCT petal3[SMALL_ROTATIONS];
 
-
 RLE_SPRITE *eRLE_small1[S_ENEMY_RLES];
 RLE_SPRITE *eRLE_large1[L_ENEMY_RLES];
 
@@ -143,7 +137,6 @@ int points4[8];
 void print_number (int x, int y, int n);
 
 #ifdef TRUE
-
 
 #define TRACK_SIZE 10
 
@@ -167,7 +160,6 @@ struct trackstruct
 	int target_time;
 
 };
-
 
 extern struct trackstruct track[TRACK_SIZE];
 
@@ -212,7 +204,6 @@ void run_display (int show)
 
 	if (show == 0)
 		return;			// skip the frame
-
 
 	draw_pbullets ();
 	draw_clouds ();
@@ -298,10 +289,8 @@ void run_display (int show)
 		rectfill (display, 390, 188 - y * 2, 400, 188 + y * 2, TRANS_B2_IN - 1);
 		rect (display, 389, 187 - y * 2, 401, 189 + y * 2, TRANS_B2_OUT - 1);
 
-
 		rectfill (display, 320 - x, 188 - y, 320 + x, 188 + y, TRANS_B5_IN - 1);
 		rect (display, 319 - x, 187 - y, 321 + x, 189 + y, TRANS_B5_OUT - 1);
-
 
 		if (arena.level_finished < 120 && arena.level_finished > 20)
 			switch (arena.level)
@@ -385,10 +374,8 @@ void run_display (int show)
 		rectfill (display, 380, 188 - y * 2, 390, 188 + y * 2, TRANS_B2_IN - 1);
 		rect (display, 379, 187 - y * 2, 391, 189 + y * 2, TRANS_B2_OUT - 1);
 
-
 		rectfill (display, 320 - x, 188 - y, 320 + x, 188 + y, TRANS_B5_IN - 1);
 		rect (display, 319 - x, 187 - y, 321 + x, 189 + y, TRANS_B5_OUT - 1);
-
 
 		/*
 		  rectfill(display, 220, 188 - y, 230, 188 + y, TRANS_B3_IN - 1);
@@ -460,12 +447,8 @@ void run_display (int show)
 		 textprintf_right_ex(display, font, 600, 280, -1, -1, "2007 OPTIONS COMPETITION");
 		*/
 
-
 		blit (display, screen, 0, 0, 0, 0, 640, 480);
 	}
-
-
-
 
 }
 
@@ -506,11 +489,8 @@ int check_pixel (int x, int y)
 	        || (pix >= TRANS_B4_IN && pix < TRANS_B5_OUT) || (pix >= TRANS_B5_IN))
 		return 1;
 
-
 	return 0;
 }
-
-
 
 void draw_player (int show)
 {
@@ -557,7 +537,6 @@ void draw_player (int show)
 // rectfill(display, x - 5, y - 4, x + 5, y + 4, COL_WHITE);
 // rect(display, x - 6, y - 5, x + 6, y + 5, COL_OUTLINE);
 	int i, j, old_x, old_y, old_x2, old_y2, k = 0;
-
 
 	for (i = 0; i < 3; i++)
 	{
@@ -762,7 +741,6 @@ void draw_player (int show)
 			END_TRANS_MODE break;	//  end blade
 		}
 
-
 	}
 
 // print_number(100,100,player.swing_hold);
@@ -882,7 +860,6 @@ void draw_player (int show)
 				      rectfill(display, 100, 0, 150, 480, TRANS_SH1_OUT);
 				      rectfill(display, 400, 0, 450, 480, TRANS_SH2_OUT);*/
 
-
 				if (player.wlevel[i] > 6)
 				{
 					vline (display, xa - 6, ya, 0, TRANS_ORANGE_OUT);
@@ -903,7 +880,6 @@ void draw_player (int show)
 //     if (player.beam_fade > 6)
 //      fcircle(xa, ya - 2 - grand(3), player.be + grand(3), 8);
 		}
-
 
 		if (player.swbeam[i] > 0)
 		{
@@ -1142,7 +1118,6 @@ void draw_enemies (void)
 
 }
 
-
 void draw_an_enemy (int e)
 {
 
@@ -1177,7 +1152,6 @@ void draw_an_enemy (int e)
 		            y + 40 + ypart (boss.t_angle[0], 5), 2, COL_COL1);
 		circle (display, x - 53 - boss.out_sides + xpart (boss.t_angle[0], 5),
 		        y + 40 + ypart (boss.t_angle[0], 5), 2, COL_OUTLINE);
-
 
 		circlefill (display, x - 32 - boss.out_sides, y - 20, 10, COL_COL4);
 		circle (display, x - 32 - boss.out_sides, y - 20, 10, COL_OUTLINE);
@@ -1964,7 +1938,6 @@ void draw_an_enemy (int e)
 			draw_carrier1_part (x, y, enemy[e].target_time / 10 + xa,
 			                    enemy[e].target_time / 5 + ya);
 
-
 		break;
 	case ENEMY_CARRIER1:
 //      circle(display, x, y, 5, COL_WHITE);
@@ -2097,7 +2070,6 @@ void draw_stopper1 (int x, int y, int front_down, int fx, int fy, int mx,
 	draw_rle_sprite (display, eRLE_large1[L_ENEMY_STOPPER1_B_R], x + 0 + bx,
 	                 y - 102 - by);
 
-
 }
 
 void draw_carrier1 (int x, int y, int out)
@@ -2143,7 +2115,6 @@ void draw_carrier1_part (int x, int y, int out, int out2)
 		vline (display, x - 2, y + 13, y + 13 + out2, COL_OUTLINE);
 		vline (display, x + 2, y + 13, y + 13 + out2, COL_OUTLINE);
 	}
-
 
 	draw_rle_sprite (display, eRLE_small1[S_ENEMY_C1P1_TOP], x - 8,
 	                 y - 10 - out);
@@ -2328,7 +2299,6 @@ void draw_an_ebullet (int b)
 		break;
 	case EBULLET_BEAM:
 		xa = 0;			//ebullet[b].angle2;
-
 
 		if (ebullet[b].angle2 < 20)
 		{
@@ -2873,8 +2843,6 @@ void draw_an_ebullet (int b)
 			           TRANS_B1_OUT, EBCOL_B1);
 		}
 
-
-
 		if (ebullet[b].cord_wait > -1)
 		{
 			drawing_mode (DRAW_MODE_TRANS, NULL, 0, 0);
@@ -2925,8 +2893,6 @@ void draw_an_ebullet (int b)
 		      {
 		       draw_dart(x, y, ebullet[b].angle2 + (i * ANGLE_4) + ANGLE_8, xe, ye, TRANS_B1_OUT, EBCOL_B1);
 		      }
-
-
 
 		     if (ebullet[b].cord_wait > -1)
 		     {
@@ -3022,15 +2988,11 @@ void draw_an_ebullet (int b)
 		      }
 		      break;
 
-
 		*/
 
 	}
 
-
 }
-
-
 
 void draw_dart (int x, int y, int angle, int out, int timeout, int cord_col,
                 int col)
@@ -3060,7 +3022,6 @@ void draw_dart (int x, int y, int angle, int out, int timeout, int cord_col,
 		                       yd - yb);
 }
 
-
 void draw_diamond (int x, int y, int angle, int out1, int out2,
                    int cord_colour)
 {
@@ -3074,7 +3035,6 @@ void draw_diamond (int x, int y, int angle, int out1, int out2,
 	               out1), cord_colour);
 	END_TRANS_MODE
 }
-
 
 void draw_pbullets (void)
 {
@@ -3161,8 +3121,6 @@ void draw_a_pbullet (int b)
 	}
 
 }
-
-
 
 void draw_clouds (void)
 {
@@ -3335,7 +3293,6 @@ void draw_a_cloud (int c)
 				angle += ANGLE_4;
 			}
 
-
 		}
 
 		/*if (xa < 10)
@@ -3388,12 +3345,7 @@ void draw_a_cloud (int c)
 		break;
 	}
 
-
 }
-
-
-
-
 
 void draw_background (void)
 {
@@ -3492,10 +3444,7 @@ void draw_background (void)
 		}
 	}
 
-
 }
-
-
 
 void draw_background2 (void)
 {
@@ -3539,7 +3488,6 @@ void draw_background2 (void)
 		}
 	}
 
-
 	for (j = 0; j < 7; j++)
 	{
 		across = start - j;
@@ -3562,9 +3510,7 @@ void draw_background2 (void)
 		}
 	}
 
-
 }
-
 
 void draw_background3 (void)
 {
@@ -3632,7 +3578,6 @@ void draw_background3 (void)
 
 }
 
-
 void draw_background4 (void)
 {
 
@@ -3678,11 +3623,9 @@ void draw_background4 (void)
 				break;
 			}
 
-
 		}
 
 	}
-
 
 	for (i = 0; i < 20; i++)
 	{
@@ -3714,13 +3657,11 @@ void draw_background4 (void)
 
 			}
 
-
 		}
 
 	}
 
 }
-
 
 void shift_message (void)
 {
@@ -4013,11 +3954,7 @@ void shift_message (void)
 		}
 		break;
 
-
 	}
-
-
-
 
 }
 
@@ -4032,7 +3969,6 @@ void display_pause (int pc)
 	rect (screen, 189, 89, 451, 211, TRANS_YELLOW_OUT - 1);
 
 	textprintf_centre_ex (screen, font, 320, 125, -1, -1, "QUIT?");
-
 
 	textprintf_centre_ex (screen, font, 320, 150, -1, -1,
 	                      "PRESS  'Y'  TO  QUIT");
@@ -4049,7 +3985,6 @@ void run_underlay(void)
  if (arena.underlay_position <= 0)
   arena.underlay_position += 480;
 
-
 }
 
 */
@@ -4065,10 +4000,6 @@ void fcircle (int x, int y, int size, int col)
 	                       y - size - 1);
 
 }
-
-
-
-
 
 /*
 
@@ -4087,8 +4018,6 @@ void pline (BITMAP * bmp, int x1, int y1, int x2, int y2, int colour)
 
 }
 
-
-
 void poly4 (BITMAP * target, int x1, int y1, int x2, int y2, int x3, int y3,
             int x4, int y4, int col)
 {
@@ -4105,7 +4034,6 @@ void poly4 (BITMAP * target, int x1, int y1, int x2, int y2, int x3, int y3,
 	polygon (target, 4, points4, col);
 
 }
-
 
 void print_number (int x, int y, int n)
 {

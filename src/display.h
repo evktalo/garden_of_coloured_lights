@@ -15,6 +15,11 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
+
+#ifndef DISPLAY_H
+#define DISPLAY_H
+
 void run_display (int show);
 
 void run_underlay (void);
@@ -446,3 +451,5 @@ enum
 	RLE_TRANS_MGBULLET4,
 	TRANS_RLES
 };
+
+#endif /* DISPLAY_H */

@@ -15,6 +15,7 @@
  * along with 'Garden of coloured lights'.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/** @file */
 
 void init_sound (void);
 void init_beat (void);

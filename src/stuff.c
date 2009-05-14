@@ -31,19 +31,15 @@
 
  */
 
-
-#include "config.h"
+#include "data.h"
+#include "stuff.h"
 
 #include "allegro.h"
 
 #include <math.h>
 
-int turn_towards_angle (int angle, int tangle, int turning);
-int delta_turn_towards_angle (int angle, int tangle, int turning);
-
 float lcos (int angle);
 float lsin (int angle);
-float angle_to_radians (int angle);
 
 // I have no idea why, but the first few elements of cos_table always get corrupted
 //  unless I put a big fat decoy array just above. A similar thing happens to the
@@ -63,15 +59,23 @@ void init_trig (void)
 		cos_table[i] = cos (angle_to_radians (i));	// * ANGLE_1;
 		sin_table[i] = sin (angle_to_radians (i));	// * ANGLE_1;
 	}
-
-
 }
 
+/**
+ * \param angle The angle with the (1,0) vector
+ * \param length Vector length
+ * \return The x component of the vector
+ */
 inline int xpart (int angle, int length)
 {
 	return (cos_table[angle & 1023] * length);
 }
 
+/**
+ * \param angle The angle with the (1,0) vector
+ * \param length Vector length
+ * \return The y component of the vector
+ */
 inline int ypart (int angle, int length)
 {
 	return (sin_table[angle & 1023] * length);
@@ -88,7 +92,6 @@ float lsin (int angle)
 	return sin_table[angle & 1023];
 
 }
-
 
 float angle_to_radians (int angle)
 {
@@ -136,7 +139,6 @@ int turn_towards_angle (int angle, int tangle, int turning)
 
 }
 
-
 int turn_towards_xy (int x1, int y1, int x2, int y2, int angle, int turning)
 {
 
@@ -153,7 +155,6 @@ int turn_towards_xy (int x1, int y1, int x2, int y2, int angle, int turning)
 // delta version just returns the change needed
 int delta_turn_towards_angle (int angle, int tangle, int turning)
 {
-
 // if ((angle < tangle && tangle > angle + ANGLE_2)
 	if ((angle < tangle && tangle > angle + ANGLE_2)
 	        || (angle > tangle && tangle > angle - ANGLE_2))
@@ -188,8 +189,6 @@ int delta_turn_towards_xy (int x1, int y1, int x2, int y2, int angle,
 
 }
 
-
-
 // speed must be at least 4, and a factor of 1024
 int pulsate (int speed, int amount, int county)
 {
@@ -202,7 +201,6 @@ void error_message_out (const char *errm)
 	allegro_message (errm);
 	exit (1);
 }
-
 
 int angle_difference (int a1, int a2)
 {
@@ -217,7 +215,6 @@ int angle_difference (int a1, int a2)
 	return abs (d2);
 }
 
-
 int pos_or_neg (int a)
 {
 	if (grand (2) == 0)
@@ -226,3 +223,4 @@ int pos_or_neg (int a)
 	return a * -1;
 
 }
+

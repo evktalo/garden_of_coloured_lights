@@ -1,6 +1,6 @@
 [Scores]
-Easy = 40
+Easy = 11377
 Normal = 0
 Hard = 0
 [Misc]
-Windowed = 0
+Windowed = 1
