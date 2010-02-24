@@ -5,6 +5,7 @@ AC_PREREQ(2.62)
 AC_INIT([GARDEN], 
 	[1.0.7], 
 	[bubla@users.sourceforge.net])
+AS_INIT
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([-Wall])
 AC_CONFIG_SRCDIR([src/input.h])
@@ -52,33 +53,50 @@ AM_CONDITIONAL([NO_EXISTING_DATA],
 # Checks for libraries.
 AC_CHECK_HEADER([allegro.h],
 		[],
-		[have_allegro="no"])
+		[have_allegro="no"
+		 AC_MSG_ERROR([You don't even have Allegro headers... Get Allegro first!]) ])
 
+test "x$host_os" != "x$build_os" && CROSS_COMPILING="yes"
+
+try_link_allegro ()
+{
+	LIBS_SAVE=$LIBS
+	LIBS="$LIBS $1"
+	AC_MSG_CHECKING([for Allegro using $1])
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([AC_INCLUDES_DEFAULT
+					 [ #include <allegro.h> ]],
+					[allegro_init();])END_OF_MAIN() ],
+		       [have_allegro="yes"],
+		       [have_allegro="no"])
+	AC_MSG_RESULT([$have_allegro])
+	LIBS=$LIBS_SAVE
+	AS_IF([test "x$have_allegro" == "xyes"],
+	      [return 0],
+	      [return 1])
+}
 # first check for 'official allegro'
 # The official allegro does not support cross-compiling, though...
-AS_IF([test "x$have_allegro" != "xno" -a "x$have_allegro" != "xyes" -a "x$host_os" = "x$build_os"],
-      [AM_PATH_ALLEGRO([4.2.0], 
-		       [have_allegro="yes"
-			LIBS="$allegro_LIBS $LIBS"]) ]) 
+AM_PATH_ALLEGRO([4.2.0]) 
 
-# then check for autotools-supported Allegro
-AS_IF([test "x$have_allegro" != "xno" -a "x$have_allegro" != "xyes"],
-      [AC_CHECK_LIB([alleg],
-                    [main],
-                    [have_allegro="yes"
-		     AC_MSG_NOTICE([You can safely ignore the Allegro warning you got earlier...])
-                     LIBS="-lalleg $LIBS"]) 
-       AC_CHECK_LIB([allegro_unsharable],
-                    [main],
-                    [LIBS="-lalleg_unsharable $LIBS"]) ])
+try_link_allegro "$allegro_LIBS"
+AS_IF([test "x$?" == "x0"],
+      [[LIBS="$LIBS $allegro_LIBS"
+       ALLEGRO_LIB=`echo $allegro_LIBS | sed -e 's/-l\([^[:blank:]]*\).*/\1/'`
+       have_allegro="yes"]])
 
-# and then for Windows allegro...
-AS_IF([test "x$have_allegro" != "xno" -a "x$have_allegro" != "xyes"],
-      [AC_CHECK_LIB([alleg42],
-                    [main],
-                    [have_allegro="yes"
-                     LIBS="-lalleg42 $LIBS"]) ])
- 
+ALLEGRO_LIBS="alleg alleg42 alleg44 alleg44-debug"
+for lib in $ALLEGRO_LIBS
+do
+	ldflag="-l$lib"
+	AS_IF([test "x$have_allegro" == "xyes"],
+	      [break])
+	try_link_allegro $ldflag
+	AS_IF([test "x$?" == "x0"],
+	      [LIBS="$LIBS $ldflag"
+	       ALLEGRO_LIB="$lib"
+	       have_allegro="yes"])
+done
+
 AS_IF([test "x$have_allegro" != "xyes"],
       [AC_MSG_ERROR([Unable to find Allegro game programming library 4.2, check out www.allegro.cc (or your distro repositories if you use a unix-like system)]) ])
 
@@ -90,6 +108,8 @@ AC_C_INLINE
 AC_HEADER_STDBOOL
 
 # Checks for library functions.
+
+AC_SUBST([ALLEGRO_LIB])
 
 AC_CONFIG_FILES([Makefile
                  bin/Makefile

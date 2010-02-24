@@ -86,7 +86,7 @@ SetOutPath "$INSTDIR"
 
 file ../../bin/garden.exe
 file mingwm10.dll
-;file alleg42.dll
+file @ALLEGRO_LIB@.dll
 
 !insertmacro MUI_STARTMENU_WRITE_BEGIN garden
 createShortCut "$SMPROGRAMS\$StartMenuFolder\garden.lnk" "$INSTDIR\garden.exe" "" "$INSTDIR\garden.exe"
@@ -249,7 +249,7 @@ Section "Uninstall"
   Delete $INSTDIR\README.txt
   Delete $INSTDIR\garden.exe
   Delete $INSTDIR\mingwm10.dll
-;  Delete $INSTDIR\alleg42.dll
+  Delete $INSTDIR\@ALLEGRO_LIB@.dll
   Delete $INSTDIR\uninstall.exe ; delete self (see explanation below why this works)
   RMDir  $INSTDIR
 

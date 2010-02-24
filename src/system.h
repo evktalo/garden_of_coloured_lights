@@ -1,6 +1,8 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
+#include <stdlib.h>
+
 #ifdef HAVE_CONFIG_H
 #include "configure.h"
 #endif /* HAVE_CONFIG_H */
