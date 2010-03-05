@@ -16,7 +16,7 @@
  */
 
 
-
+#include "system.h"
 #include "config.h"
 
 #include "allegro.h"
@@ -191,6 +191,8 @@ void startup_menu (void)
 
 		textprintf_centre_ex (display, font, 320, 90, -1, -1,
 		                      "G A R D E N   O F   C O L O U R E D   L I G H T S");
+		textprintf_ex (display, font, 10, 460, -1, -1,
+				"VERSION %s", PACKAGE_VERSION);
 		if (options.tourist > 0)
 		{/* One plays in (cheat) tourist mode */
 			textprintf_centre_ex (display, font, 320, 130, -1, -1,

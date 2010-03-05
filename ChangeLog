@@ -1,7 +1,7 @@
 2010-05-03 Matěj Týč <bubla@users.sf.net>
 	* configure.ac: Smarter checks that use shell function, version bump
 	* src/sound.c: Added support for no audio and for volume
-	* src/menu.c: Added audio menu entry
+	* src/menu.c: Added audio menu entry and version info
 
 2009-03-12 Matěj Týč <bubla@users.sf.net>
 	* configure.ac: Fixed the file for cross-compilations
