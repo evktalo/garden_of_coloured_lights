@@ -3,7 +3,7 @@
 
 AC_PREREQ(2.62)
 AC_INIT([GARDEN], 
-	[1.0.7], 
+	[1.0.8], 
 	[bubla@users.sourceforge.net])
 AS_INIT
 AC_CONFIG_AUX_DIR([build-aux])
@@ -11,6 +11,15 @@ AM_INIT_AUTOMAKE([-Wall])
 AC_CONFIG_SRCDIR([src/input.h])
 AC_CONFIG_HEADERS([src/configure.h])
 AC_CONFIG_MACRO_DIR([m4])
+
+AC_ARG_ENABLE([debug],
+	      [AS_HELP_STRING([--enable-debug],
+			   [Builds the debug version of the library [[default = no]]]) ],
+	      [],
+	      [enable_debug="no"])
+
+AS_IF([test "x$enable_debug" = "xyes"],
+      [CFLAGS="${CFLAGS} -g -O0"])
 
 # Checks for programs.
 AC_PROG_CC
@@ -27,6 +36,7 @@ AC_CHECK_PROG([have_freedesktop],
 	      [yes])
 AM_CONDITIONAL([HAVE_FREEDESKTOP],
 	       [test "x$have_freedesktop" = "xyes"])
+
 
 AS_CASE([$host],
         [*mingw* | *cygwin*],
@@ -84,7 +94,12 @@ AS_IF([test "x$?" == "x0"],
        ALLEGRO_LIB=`echo $allegro_LIBS | sed -e 's/-l\([^[:blank:]]*\).*/\1/'`
        have_allegro="yes"]])
 
-ALLEGRO_LIBS="alleg alleg42 alleg44 alleg44-debug"
+ALLEGRO_RELEASE_LIBS="alleg alleg42 alleg44"
+ALLEGRO_DEBUG_LIBS="alld42 alleg44-debug"
+AS_IF([test "x$enable_debug" = "xyes"],
+      [ALLEGRO_LIBS="$ALLEGRO_DEBUG_LIBS $ALLEGRO_RELEASE_LIBS"],
+      [ALLEGRO_LIBS="$ALLEGRO_RELEASE_LIBS $ALLEGRO_DEBUG_LIBS"])
+
 for lib in $ALLEGRO_LIBS
 do
 	ldflag="-l$lib"

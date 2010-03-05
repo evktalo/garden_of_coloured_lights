@@ -1118,68 +1118,75 @@ void init_sound (void)
 
 	reserve_voices (16, 0);	// not sure this is necessary
 	if (install_sound (DIGI_AUTODETECT, MIDI_NONE, NULL) == -1)
+	//if (install_sound (DIGI_ALSA, MIDI_NONE, NULL) == -1)
 	{
-		exit (1);			// don't bother with proper error handling yet. This should just disable sound.
+		options.sound_init = 0;
+		//exit (1);			// don't bother with proper error handling yet. This should just disable sound.
 	}
+	else 
+		options.sound_init = 1;
 	set_volume (255, 0);
 
-	load_sample_in (WAV_FIRE, "fire", DIRECT_WAV);
-	load_sample_in (WAV_BLOP, "blop", DIRECT_WAV);
-	load_sample_in (WAV_SWBEAM, "swbeam", DIRECT_WAV);
-	load_sample_in (WAV_SCATTER, "scatter", DIRECT_WAV);
-	load_sample_in (WAV_MGUN, "mgun", DIRECT_WAV);
-	load_sample_in (WAV_CANNON, "cannon", DIRECT_WAV);
-	load_sample_in (WAV_BANG, "bang", DIRECT_WAV);
-	load_sample_in (WAV_RECT, "rect", DIRECT_WAV);
-	load_sample_in (WAV_RECT2, "rect2", DIRECT_WAV);
-	load_sample_in (WAV_WHOOSH, "whoosh", DIRECT_WAV);
-	load_sample_in (WAV_P_BANG, "p_bang", DIRECT_WAV);
-	load_sample_in (WAV_WORMS, "worms", DIRECT_WAV);
-	load_sample_in (WAV_MOUTH, "mouth", DIRECT_WAV);
-	load_sample_in (WAV_LWBEAM, "lwbeam", DIRECT_WAV);
+	if (options.sound_init != 0)
+	{
+		load_sample_in (WAV_FIRE, "fire", DIRECT_WAV);
+		load_sample_in (WAV_BLOP, "blop", DIRECT_WAV);
+		load_sample_in (WAV_SWBEAM, "swbeam", DIRECT_WAV);
+		load_sample_in (WAV_SCATTER, "scatter", DIRECT_WAV);
+		load_sample_in (WAV_MGUN, "mgun", DIRECT_WAV);
+		load_sample_in (WAV_CANNON, "cannon", DIRECT_WAV);
+		load_sample_in (WAV_BANG, "bang", DIRECT_WAV);
+		load_sample_in (WAV_RECT, "rect", DIRECT_WAV);
+		load_sample_in (WAV_RECT2, "rect2", DIRECT_WAV);
+		load_sample_in (WAV_WHOOSH, "whoosh", DIRECT_WAV);
+		load_sample_in (WAV_P_BANG, "p_bang", DIRECT_WAV);
+		load_sample_in (WAV_WORMS, "worms", DIRECT_WAV);
+		load_sample_in (WAV_MOUTH, "mouth", DIRECT_WAV);
+		load_sample_in (WAV_LWBEAM, "lwbeam", DIRECT_WAV);
 
-	load_sample_in (WAV_LEVEL, "level", DIRECT_WAV);
-	load_sample_in (WAV_EXTRA, "extra", DIRECT_WAV);
-	/*   load_sample_in(WAV_STAGE1, "stage1", DIRECT_WAV);
-	   load_sample_in(WAV_STAGE2, "stage2", DIRECT_WAV);
-	   load_sample_in(WAV_STAGE3, "stage3", DIRECT_WAV);
-	   load_sample_in(WAV_STAGE4_2, "stage4", DIRECT_WAV);*/
+		load_sample_in (WAV_LEVEL, "level", DIRECT_WAV);
+		load_sample_in (WAV_EXTRA, "extra", DIRECT_WAV);
+		/*   load_sample_in(WAV_STAGE1, "stage1", DIRECT_WAV);
+		   load_sample_in(WAV_STAGE2, "stage2", DIRECT_WAV);
+		   load_sample_in(WAV_STAGE3, "stage3", DIRECT_WAV);
+		   load_sample_in(WAV_STAGE4_2, "stage4", DIRECT_WAV);*/
 
-	load_sample_in (WAV_FLUTE, "flute", DIRECT_BEAT);
-	load_sample_in (WAV_DRUM1, "drum1", DIRECT_BEAT);
-	load_sample_in (WAV_DRUM2, "drum2", DIRECT_BEAT);
-	load_sample_in (WAV_DRUM3, "drum3", DIRECT_BEAT);
-	load_sample_in (WAV_DRUM4, "drum4", DIRECT_BEAT);
-	load_sample_in (WAV_CYMBAL1, "cymbal1", DIRECT_BEAT);
-	load_sample_in (WAV_LINE1, "line1", DIRECT_BEAT);
-	load_sample_in (WAV_LINE2, "line2", DIRECT_BEAT);
-	load_sample_in (WAV_NICE, "voice", DIRECT_BEAT);
-	load_sample_in (WAV_NICE2, "nice2", DIRECT_BEAT);
-	load_sample_in (WAV_SAW, "saw", DIRECT_BEAT);
-	load_sample_in (WAV_BLIP, "blip", DIRECT_BEAT);
-	load_sample_in (WAV_SQUARE, "square", DIRECT_BEAT);
-	load_sample_in (WAV_LONG, "long", DIRECT_BEAT);
-	load_sample_in (WAV_LONG2, "long2", DIRECT_BEAT);
-	load_sample_in (WAV_XLINE, "xline", DIRECT_BEAT);
-	load_sample_in (WAV_FLUTE2_S, "flute2_s", DIRECT_BEAT);
-	load_sample_in (WAV_FLUTE2_L, "flute2_l", DIRECT_BEAT);
-	load_sample_in (WAV_FLUTE_L, "flute_l", DIRECT_BEAT);
-	load_sample_in (WAV_PIANO, "piano", DIRECT_BEAT);
-	load_sample_in (WAV_PAN, "pan", DIRECT_BEAT);
-	load_sample_in (WAV_STRING, "string", DIRECT_BEAT);
-	load_sample_in (WAV_DLINE, "dline", DIRECT_BEAT);
-	load_sample_in (WAV_SYNTH, "synth", DIRECT_BEAT);
-	load_sample_in (WAV_FOOD, "food", DIRECT_BEAT);
-	load_sample_in (WAV_LIGHT, "light", DIRECT_BEAT);
-	load_sample_in (WAV_BEAM, "beam", DIRECT_BEAT);
-	load_sample_in (WAV_ARP, "arp", DIRECT_BEAT);
-	load_sample_in (WAV_LINE3, "line3", DIRECT_BEAT);
-	load_sample_in (WAV_STAGE4, "stage4", DIRECT_BEAT);
-	load_sample_in (WAV_MULTI, "multi", DIRECT_BEAT);
-	load_sample_in (WAV_MULTI2, "multi2", DIRECT_BEAT);
-	load_sample_in (WAV_THING4, "thing4", DIRECT_BEAT);
-	load_sample_in (WAV_SPINNER, "spinner", DIRECT_BEAT);
-	load_sample_in (WAV_WALKER, "walker", DIRECT_BEAT);
+		load_sample_in (WAV_FLUTE, "flute", DIRECT_BEAT);
+		load_sample_in (WAV_DRUM1, "drum1", DIRECT_BEAT);
+		load_sample_in (WAV_DRUM2, "drum2", DIRECT_BEAT);
+		load_sample_in (WAV_DRUM3, "drum3", DIRECT_BEAT);
+		load_sample_in (WAV_DRUM4, "drum4", DIRECT_BEAT);
+		load_sample_in (WAV_CYMBAL1, "cymbal1", DIRECT_BEAT);
+		load_sample_in (WAV_LINE1, "line1", DIRECT_BEAT);
+		load_sample_in (WAV_LINE2, "line2", DIRECT_BEAT);
+		load_sample_in (WAV_NICE, "voice", DIRECT_BEAT);
+		load_sample_in (WAV_NICE2, "nice2", DIRECT_BEAT);
+		load_sample_in (WAV_SAW, "saw", DIRECT_BEAT);
+		load_sample_in (WAV_BLIP, "blip", DIRECT_BEAT);
+		load_sample_in (WAV_SQUARE, "square", DIRECT_BEAT);
+		load_sample_in (WAV_LONG, "long", DIRECT_BEAT);
+		load_sample_in (WAV_LONG2, "long2", DIRECT_BEAT);
+		load_sample_in (WAV_XLINE, "xline", DIRECT_BEAT);
+		load_sample_in (WAV_FLUTE2_S, "flute2_s", DIRECT_BEAT);
+		load_sample_in (WAV_FLUTE2_L, "flute2_l", DIRECT_BEAT);
+		load_sample_in (WAV_FLUTE_L, "flute_l", DIRECT_BEAT);
+		load_sample_in (WAV_PIANO, "piano", DIRECT_BEAT);
+		load_sample_in (WAV_PAN, "pan", DIRECT_BEAT);
+		load_sample_in (WAV_STRING, "string", DIRECT_BEAT);
+		load_sample_in (WAV_DLINE, "dline", DIRECT_BEAT);
+		load_sample_in (WAV_SYNTH, "synth", DIRECT_BEAT);
+		load_sample_in (WAV_FOOD, "food", DIRECT_BEAT);
+		load_sample_in (WAV_LIGHT, "light", DIRECT_BEAT);
+		load_sample_in (WAV_BEAM, "beam", DIRECT_BEAT);
+		load_sample_in (WAV_ARP, "arp", DIRECT_BEAT);
+		load_sample_in (WAV_LINE3, "line3", DIRECT_BEAT);
+		load_sample_in (WAV_STAGE4, "stage4", DIRECT_BEAT);
+		load_sample_in (WAV_MULTI, "multi", DIRECT_BEAT);
+		load_sample_in (WAV_MULTI2, "multi2", DIRECT_BEAT);
+		load_sample_in (WAV_THING4, "thing4", DIRECT_BEAT);
+		load_sample_in (WAV_SPINNER, "spinner", DIRECT_BEAT);
+		load_sample_in (WAV_WALKER, "walker", DIRECT_BEAT);
+	}
 
 }
 
@@ -1352,6 +1359,7 @@ void run_beat (void)
 void play_beat (int beat, int f, int vol, int pan, int alt_f, int ptone,
                 int palt_tone)
 {
+	vol = options.sound_volume;
 	switch (beat)
 	{
 	case BEAT_BASIC:
@@ -1564,7 +1572,7 @@ void play_beat (int beat, int f, int vol, int pan, int alt_f, int ptone,
 		if (synch_done[DONE_FIRE4_1] & FIRE4_SPINNER)
 		{
 //    if (grand(3) == 0)
-			play_effectwfvp (WAV_SPINNER, tone[NOTE_1C], 150, pan);
+			play_effectwfvp (WAV_SPINNER, tone[NOTE_1C], vol, pan);
 //      else
 //       play_effectwfvp(WAV_SPINNER, tone [NOTE_1G], 150, pan);
 		}
@@ -1625,8 +1633,8 @@ Pass e.g. WAV_FIRE to this and it plays it
 void play_effect (int sample)
 {
 
-	play_sample (sounds[sample], 200, 127, 1000, 0);
-
+	if (options.sound_init != 0)
+		play_sample (sounds[sample], 200, options.sound_volume, 1000, 0);
 }
 
 /*
@@ -1634,7 +1642,8 @@ plays sample at frequency f (normal is 1000), volume v (255 is max), x position 
 */
 void play_effectwfvp (int sample, int f, int v, int pan)
 {
-
+	if (options.sound_init == 0)
+		return;
 	switch (options.sound_mode)
 	{
 	case SOUNDMODE_MONO:
@@ -1658,9 +1667,12 @@ void play_effectwfvx (int sample, int f, int v, int x)
 
 // int pan = x / 2500; // this gives us a # from 0 to 255, from the left of the screen to the right. For stereo
 
+	v = (int)(options.sound_volume / 1.8);
 	int pan = x / 5030;		// this gives us a # from 0 to 255, from the left of the screen to the right. For stereo
 	pan += 64;
 
+	if (options.sound_init == 0)
+		return;
 	switch (options.sound_mode)
 	{
 	case SOUNDMODE_MONO:

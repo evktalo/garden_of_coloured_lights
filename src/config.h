@@ -628,11 +628,11 @@ struct bossstruct
 
 struct optionstruct
 {
-	int sound_init;		// if 0, sound isn't initialised at all. Changed in config file only.
+	int sound_init;		// if 0, sound isn't initialised at all. Changed in config file only or during install_sound
 	int sound_mode;		// mono, stereo, reversed, off
 	int run_vsync;		// on or off
 	int sound_volume;		// sound fx volume; if 0 sound effects not played
-	int ambience_volume;		// if 0 ambience not played
+//	int ambience_volume;		// if 0 ambience not played
 	int joystick;
 	int highscore[3];
 	int joy_button[4];

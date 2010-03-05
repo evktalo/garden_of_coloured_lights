@@ -3,6 +3,9 @@ Bugfixes:
 	- README is part of the Win32 package, too.
 	- The 'exit menu' bug has been fixed.
 
+Features:
+	- Volume control support in the menu
+
 1.0.6:	
 Features:
 	- Smart CPU usage

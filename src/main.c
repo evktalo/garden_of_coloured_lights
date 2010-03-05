@@ -261,6 +261,9 @@ void init_at_startup(void)
 	options.joy_sensitivity = get_config_int("Misc", "joy_sensitivity", 70);
 	options.init_joystick = get_config_int("Misc", "joy_init", 1);
 	options.joystick = 0;
+
+	options.sound_volume = get_config_int("Misc", "sound_volume", (int)(255 * 0.7));
+
 	options.key_or_joy = 0; // don't put in initfile!
 
 	options.tourist = get_config_int("Misc", "Tourist", 0);

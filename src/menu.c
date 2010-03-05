@@ -78,6 +78,7 @@ enum
 {
 	MENU_START,
 	MENU_DIFFICULTY,
+	MENU_AUDIO,
 	MENU_JOY_OR_KEYS,
 	MENU_KEYS,
 	MENU_CALIBRATE,
@@ -198,7 +199,12 @@ void startup_menu (void)
 // textprintf_centre_ex(display, font, 320, 80, -1, -1, "C O L O U R E D   L I G H T S");
 // textprintf_centre_ex(display, font, 320, 110, -1, -1, "remember 5 seconds!");
 
-		int my = 250;
+		int my = 240;
+		const int line_break = 30;
+		const int bo_up = 10;
+		const int bo_down = 15;
+		int line_num = 0;
+		int entry_y;
 
 		y1 = my - 23;
 		y2 = my - 10 + menu_select * 30;
@@ -212,48 +218,73 @@ void startup_menu (void)
 // rectfill(display, 370, y3, 600, y4, TRANS_DGREEN);
 
 		textprintf_ex (display, font, 400, my, -1, -1, "START GAME");
+		line_num ++;
+
+		entry_y = my + line_num * line_break;
 		switch (arena.difficulty)
 		{
 		case 0:
-			textprintf_ex (display, font, 400, my + 30, -1, -1, "DIFFICULTY - NORMAL");
+			textprintf_ex (display, font, 400, entry_y, -1, -1, "DIFFICULTY - NORMAL");
 			break;
 		case 1:
-			textprintf_ex (display, font, 400, my + 30, -1, -1, "DIFFICULTY - HARD");
+			textprintf_ex (display, font, 400, entry_y, -1, -1, "DIFFICULTY - HARD");
 			break;
 		case 2:
-			textprintf_ex (display, font, 400, my + 30, -1, -1, "DIFFICULTY - PUNISHMENT");
+			textprintf_ex (display, font, 400, entry_y, -1, -1, "DIFFICULTY - PUNISHMENT");
 			break;
 		}
-// textprintf_ex(display [2], font, 400, 260, -1, -1, "STAGE - %i", arena.starting_level);
-		textprintf_ex (display, font, 400, my + 90, -1, -1, "SET  KEYS");
-		textprintf_ex (display, font, 400, my + 150, -1, -1, "EXIT");
+		line_num++;
 
-		if (options.joystick)
-			textprintf_ex (display, font, 400, my + 120, -1, -1,
-			               "CALIBRATE JOYSTICK");
-		else
+		entry_y = my + line_num * line_break;
+		if (options.sound_init != 0)
 		{
-			textprintf_ex (display, font, 400, my + 120, -1, -1, "NO JOYSTICK");
+			textprintf_ex (display, font, 400, entry_y, -1, -1, "SFX VOLUME - %d%%", (int)((options.sound_volume + 1.28) / 2.55)); 
+		}
+		else
+		{	textprintf_ex (display, font, 400, entry_y, -1, -1, "NO SOUND");
 			drawing_mode (DRAW_MODE_TRANS, NULL, 0, 0);
-			rectfill (display, 399, my + 110, 530, my + 135, CONVERT_WHITE_TO_GREY);
+			rectfill (display, 399, entry_y - bo_up, 530, entry_y + bo_down, CONVERT_WHITE_TO_GREY);
 			drawing_mode (DRAW_MODE_SOLID, NULL, 0, 0);
 		}
+		line_num++;
 
+		entry_y = my + line_num * line_break;
 		if (options.joystick)
 		{
 			if (options.key_or_joy == 1)
-				textprintf_ex (display, font, 400, my + 60, -1, -1, "CONTROLS - JOYSTICK");
+				textprintf_ex (display, font, 400, entry_y, -1, -1, "CONTROLS - JOYSTICK");
 			else
-				textprintf_ex (display, font, 400, my + 60, -1, -1, "CONTROLS - KEYBOARD");
+				textprintf_ex (display, font, 400, entry_y, -1, -1, "CONTROLS - KEYBOARD");
 		}
 		else
 		{
-			textprintf_ex (display, font, 400, my + 60, -1, -1, "NO JOYSTICK");
+			textprintf_ex (display, font, 400, entry_y, -1, -1, "NO JOYSTICK");
 			drawing_mode (DRAW_MODE_TRANS, NULL, 0, 0);
-			rectfill (display, 399, my + 50, 530, my + 75, CONVERT_WHITE_TO_GREY);
+			rectfill (display, 399, entry_y - bo_up, 530, entry_y + bo_down, CONVERT_WHITE_TO_GREY);
 			drawing_mode (DRAW_MODE_SOLID, NULL, 0, 0);
 
 		}
+		line_num++;
+// textprintf_ex(display [2], font, 400, 260, -1, -1, "STAGE - %i", arena.starting_level);
+		entry_y = my + line_num * line_break;
+		textprintf_ex (display, font, 400, entry_y, -1, -1, "SET  KEYS");
+		line_num++;
+
+		entry_y = my + line_num * line_break;
+		if (options.joystick)
+			textprintf_ex (display, font, 400, entry_y, -1, -1,
+			               "CALIBRATE JOYSTICK");
+		else
+		{
+			textprintf_ex (display, font, 400, entry_y, -1, -1, "NO JOYSTICK");
+			drawing_mode (DRAW_MODE_TRANS, NULL, 0, 0);
+			rectfill (display, 399, entry_y - bo_up, 530, entry_y + bo_down, CONVERT_WHITE_TO_GREY);
+			drawing_mode (DRAW_MODE_SOLID, NULL, 0, 0);
+		}
+		line_num++;
+
+		entry_y = my + line_num * line_break;
+		textprintf_ex (display, font, 400, entry_y, -1, -1, "EXIT");
 
 		my = 270;
 
@@ -287,24 +318,30 @@ void startup_menu (void)
 			clear_keybuf();
 			if (pressed_key == KEY_UP || pressed_key == KEY_8_PAD)
 			{
+				menu_pressed_up:
 				menu_select--;
 				if (menu_select < 0)
 					menu_select = MENU_EXIT;
 				if (menu_select == MENU_CALIBRATE && options.joystick == 0)
-					menu_select = MENU_KEYS;
+					goto menu_pressed_up;
 				if (menu_select == MENU_JOY_OR_KEYS && options.joystick == 0)
-					menu_select = MENU_JOY_OR_KEYS - 1;
+					goto menu_pressed_up;
+				if (menu_select == MENU_AUDIO && options.sound_init == 0)
+					goto menu_pressed_up;
 				key_wait = 7;
 			}
 			if (pressed_key == KEY_DOWN || pressed_key == KEY_2_PAD)
 			{
+				menu_pressed_down:
 				menu_select++;
 				if (menu_select > MENU_EXIT)
 					menu_select = 0;
 				if (menu_select == MENU_CALIBRATE && options.joystick == 0)
-					menu_select = MENU_EXIT;
+					goto menu_pressed_down;
 				if (menu_select == MENU_JOY_OR_KEYS && options.joystick == 0)
-					menu_select = MENU_KEYS;
+					goto menu_pressed_down;
+				if (menu_select == MENU_AUDIO && options.sound_init == 0)
+					goto menu_pressed_down;
 				key_wait = 7;
 			}
 			if (pressed_key == KEY_LEFT || pressed_key == KEY_4_PAD)
@@ -322,6 +359,12 @@ void startup_menu (void)
 					if (arena.difficulty < 0)
 						arena.difficulty = 0;
 				}
+				if (menu_select == MENU_AUDIO)
+				{
+					int new_volume = (int)((options.sound_volume + 13) / 26);
+					new_volume = (new_volume - 1 + 11) % 11;
+					options.sound_volume = (int)(new_volume * 25.5);
+				}
 				key_wait = 11;
 			}
 			if (pressed_key == KEY_RIGHT || pressed_key == KEY_6_PAD)
@@ -338,6 +381,12 @@ void startup_menu (void)
 					arena.difficulty++;
 					if (arena.difficulty > 2)
 						arena.difficulty = 2;
+				}
+				if (menu_select == MENU_AUDIO)
+				{
+					int new_volume = (int)((options.sound_volume + 13) / 26);
+					new_volume = (new_volume + 1) % 11;
+					options.sound_volume = (int)(new_volume * 25.5);
 				}
 				key_wait = 11;
 			}
