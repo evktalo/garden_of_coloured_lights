@@ -1,7 +1,12 @@
+2010-28-04 Matěj Týč <bubla@users.sf.net>
+	* configure.ac: Added explicit libm dependency to conform with the new
+	Fedora DSO linking policy
+
 2010-05-03 Matěj Týč <bubla@users.sf.net>
 	* configure.ac: Smarter checks that use shell function, version bump
 	* src/sound.c: Added support for no audio and for volume
 	* src/menu.c: Added audio menu entry and version info
+	* data/init.txt: Set score for Easy (de-facto Normal) to 0
 
 2009-03-12 Matěj Týč <bubla@users.sf.net>
 	* configure.ac: Fixed the file for cross-compilations

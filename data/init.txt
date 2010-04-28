@@ -1,5 +1,5 @@
 [Scores]
-Easy = 40
+Easy = 0
 Normal = 0
 Hard = 0
 [Misc]

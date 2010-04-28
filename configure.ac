@@ -66,6 +66,8 @@ AC_CHECK_HEADER([allegro.h],
 		[have_allegro="no"
 		 AC_MSG_ERROR([You don't even have Allegro headers... Get Allegro first!]) ])
 
+AC_CHECK_LIB([m], [sin])
+
 test "x$host_os" != "x$build_os" && CROSS_COMPILING="yes"
 
 try_link_allegro ()
@@ -91,7 +93,7 @@ AM_PATH_ALLEGRO([4.2.0])
 try_link_allegro "$allegro_LIBS"
 AS_IF([test "x$?" == "x0"],
       [[LIBS="$LIBS $allegro_LIBS"
-       ALLEGRO_LIB=`echo $allegro_LIBS | sed -e 's/-l\([^[:blank:]]*\).*/\1/'`
+       ALLEGRO_LIB=`echo $allegro_LIBS | sed -e 's/.*-l\([^[:blank:]]*\).*/\1/'`
        have_allegro="yes"]])
 
 ALLEGRO_RELEASE_LIBS="alleg alleg42 alleg44"
